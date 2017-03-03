@@ -28,7 +28,7 @@ TEXT ·_SimdSsse3Reorder32bit(SB), 7, $0
     WORD $0xc0ff                   //    inc    eax
     WORD $0xc931                   //    xor    ecx, ecx
     WORD $0x03a8                   //    test    al, 3
-	  JE    LBB0_4
+    JE    LBB0_4
                                    //    ## %.lr.ph5.i.prol.preheader
     WORD $0xf089                   //    mov    eax, esi
     WORD $0xe083; BYTE $0x30       //    and    eax, 48
@@ -46,10 +46,10 @@ LBB0_3:                            //    ## =>This Inner Loop Header: Depth=1
     LONG $0x0c7ff9c5; BYTE $0x0a   //    vmovdqa    [rdx + rcx], xmm1
     LONG $0x10c18348               //    add    rcx, 16
     WORD $0xff48; BYTE $0xc0       //    inc    rax
-	  JNE  LBB0_3
+    JNE  LBB0_3
 LBB0_4:                            //    ## %.lr.ph5.i.preheader.split
     LONG $0x30f88349               //    cmp    r8, 48
-	  JB   LBB0_8
+    JB   LBB0_8
     LEAQ K256<>(SB), BP
     LONG $0x456ff9c5; BYTE $0x00   //    vmovdqa    xmm0, [rbp] /* [rip + LCPI0_0] ## xmm0 = [3,2,1,0,7,6,5,4,11,10,9,8,15,14,13,12] */
 LBB0_6:                            //    ## =>This Inner Loop Header: Depth=1
@@ -68,7 +68,7 @@ LBB0_6:                            //    ## =>This Inner Loop Header: Depth=1
     LONG $0x40c18348               //    add        rcx, 64
     WORD $0x394c; BYTE $0xc9       //    cmp        rcx, r9
     JB   LBB0_6
-	  JMP  LBB0_8
+    JMP  LBB0_8
 LBB0_7:                            //    ##   in Loop: Header=BB0_8 Depth=1
     LONG $0x0f048b42               //    mov    eax, [rdi + r9]
     WORD $0xc80f                   //    bswap  eax
@@ -76,7 +76,7 @@ LBB0_7:                            //    ##   in Loop: Header=BB0_8 Depth=1
     LONG $0x04c18349               //    add    r9, 4
 LBB0_8:                            //    ## =>This Inner Loop Header: Depth=1
     WORD $0x3949; BYTE $0xf1       //    cmp    r9, rsi
-	  JB   LBB0_7
+    JB   LBB0_7
     RET
 
 DATA K256<>+0x000(SB)/8, $0x0405060700010203

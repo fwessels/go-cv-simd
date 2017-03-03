@@ -27,3 +27,5 @@ $ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain
 ## Linux
 
 Output Intel syntax (`-masm=intel`)
+
+Prevent Call Stack Information (`-fno-asynchronous-unwind-tables -fno-exceptions -fno-rtti`)

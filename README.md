@@ -2,8 +2,9 @@
 
 ## Generate assembly
 
+Use `-n` to see full commands
 ```
-$ make Users/frankw/c_apps/Simd/src/Simd/SimdAvx2AbsDifferenceSum.cpp.s
+$ make -n Users/frankw/c_apps/Simd/src/Simd/SimdAvx2AbsDifferenceSum.cpp.s
 Compiling CXX source to assembly CMakeFiles/SimdAvx2.dir/Users/frankw/c_apps/Simd/src/Simd/SimdAvx2AbsDifferenceSum.cpp.s
 ```
 

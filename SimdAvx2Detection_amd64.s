@@ -99,6 +99,7 @@ L7:
     LONG $0x487ffec5; BYTE $0xe0 //    vmovdqu -32[rax], ymm1
     WORD $0x3948; BYTE $0xfa     //    cmp    rdx, rdi
 	  JB    L7
+L6:
     LONG $0x24848b48; LONG $0x00000120 //    mov    rax, QWORD 288[rsp]
     LONG $0x24843948; LONG $0x00000130 //    cmp    QWORD 304[rsp], rax
     JE    L5
@@ -1295,22 +1296,291 @@ L223:
 //    pop    r15
 //    pop    rbp
 
-L6:
-L148:
-L149:
-L150:
-L151:
-L152:
-L153:
-L154:
-L160:
-L234:
-L237:
-L239:
-L241:
     RET
 
+L234:
+    LONG $0x2484c748; LONG $0x00000140; LONG $0x00000000 //    mov    QWORD 320[rsp], 0
+	  JMP  L10
+L160:
+    LONG $0xc057f8c5             //    vxorps    xmm0, xmm0, xmm0
+	  JMP  L70
+L149:
+    LONG $0x000001b8; BYTE $0x00 //    mov    eax, 1
+    LONG $0x000001ba; BYTE $0x00 //    mov    edx, 1
+	  JMP  L35
+L148:
+    WORD $0xc031                 //    xor    eax, eax
+    WORD $0xd231                 //    xor    edx, edx
+	  JMP  L35
+L241:
+    LONG $0x6024848b; WORD $0x0001; BYTE $0x00 //    mov    eax, DWORD 352[rsp]
+    LONG $0xac6ffdc5; LONG $0x00016024; BYTE $0x00 //    vmovdqa    ymm5, 352[rsp]
+    LONG $0x9429fcc5; LONG $0x0001a024; BYTE $0x00 //    vmovaps    416[rsp], ymm2
+    LONG $0xac7ffdc5; LONG $0x00018024; BYTE $0x00 //    vmovdqa    384[rsp], ymm5
+    WORD $0xc085                 //    test    eax, eax
+	  JNE  L161
+    LONG $0x84249c8b; WORD $0x0001; BYTE $0x00 //    mov    ebx, DWORD 388[rsp]
+    WORD $0xdb85                 //    test    ebx, ebx
+	  JNE  L162
+    LONG $0x24948b44; LONG $0x00000188 //    mov    r10d, DWORD 392[rsp]
+    WORD $0x8545; BYTE $0xd2     //    test    r10d, r10d
+	  JNE  L163
+    LONG $0x248c8b44; LONG $0x0000018c //    mov    r9d, DWORD 396[rsp]
+    WORD $0x8545; BYTE $0xc9     //    test    r9d, r9d
+	  JNE  L164
+    LONG $0x24848b44; LONG $0x00000190 //    mov    r8d, DWORD 400[rsp]
+    WORD $0x8545; BYTE $0xc0     //    test    r8d, r8d
+	  JNE  L165
+    LONG $0x9424bc8b; WORD $0x0001; BYTE $0x00 //    mov    edi, DWORD 404[rsp]
+    WORD $0xff85                 //    test    edi, edi
+	  JNE  L166
+    LONG $0x9824b48b; WORD $0x0001; BYTE $0x00 //    mov    esi, DWORD 408[rsp]
+    WORD $0xf685                 //    test    esi, esi
+	  JNE  L167
+    LONG $0x9c248c8b; WORD $0x0001; BYTE $0x00 //    mov    ecx, DWORD 412[rsp]
+    LONG $0x000007b8; BYTE $0x00 //    mov    eax, 7
+    WORD $0x07b2                 //    mov    dl, 7
+    WORD $0xc985                 //    test    ecx, ecx
+	  JE   L66
+	  JMP  L76
+L154:
+    LONG $0x000006b8; BYTE $0x00 //    mov    eax, 6
+    LONG $0x000006ba; BYTE $0x00 //    mov    edx, 6
+	  JMP  L35
+L153:
+    LONG $0x000005b8; BYTE $0x00 //    mov    eax, 5
+    LONG $0x000005ba; BYTE $0x00 //    mov    edx, 5
+	  JMP  L35
+L152:
+    LONG $0x000004b8; BYTE $0x00 //    mov    eax, 4
+    LONG $0x000004ba; BYTE $0x00 //    mov    edx, 4
+	  JMP  L35
+L151:
+    LONG $0x000003b8; BYTE $0x00 //    mov    eax, 3
+    LONG $0x000003ba; BYTE $0x00 //    mov    edx, 3
+	  JMP  L35
+L150:
+    LONG $0x000002b8; BYTE $0x00 //    mov    eax, 2
+    LONG $0x000002ba; BYTE $0x00 //    mov    edx, 2
+	  JMP  L35
+L161:
+    WORD $0xc031                 //    xor    eax, eax
+    WORD $0xd231                 //    xor    edx, edx
+L76:
+    LONG $0x24948b4c; LONG $0x00000100 //    mov    r10, QWORD 256[rsp]
+    LONG $0x016b8d45             //    lea    r13d, 1[r11]
+    LONG $0x24b48b48; LONG $0x000000c0 //    mov    rsi, QWORD 192[rsp]
+    WORD $0x634c; BYTE $0xfa     //    movsxd    r15, edx
+    LONG $0x107aa1c4; LONG $0x01a0bc94; WORD $0x0000 //    vmovss    xmm2, DWORD 416[rsp+r15*4]
+    WORD $0x0149; BYTE $0xc2     //    add    r10, rax
+    WORD $0x6349; BYTE $0xc5     //    movsxd    rax, r13d
+    LONG $0x04e0c148             //    sal    rax, 4
+    LONG $0x061c8d49             //    lea    rbx, [r14+rax]
+    WORD $0x038b                 //    mov    eax, DWORD [rbx]
+    WORD $0x634c; BYTE $0xd8     //    movsxd    r11, eax
+    WORD $0xc001                 //    add    eax, eax
+    WORD $0x9848                 //    cdqe
+    LONG $0x04e3c149             //    sal    r11, 4
+    LONG $0x249c034c; LONG $0x000000a0 //    add    r11, QWORD 160[rsp]
+    LONG $0x860c8d4c             //    lea    r9, [rsi+rax*4]
+    LONG $0x24848b48; LONG $0x00000080 //    mov    rax, QWORD 128[rsp]
+    WORD $0x294c; BYTE $0xf0     //    sub    rax, r14
+    LONG $0x04f8c148             //    sar    rax, 4
+    WORD $0x3941; BYTE $0xc5     //    cmp    r13d, eax
+    LONG $0x60248489; WORD $0x0001; BYTE $0x00 //    mov    DWORD 352[rsp], eax
+	  JGE  L220
+    LONG $0x02e2c149             //    sal    r10, 2
+    LONG $0x0dc38348             //    add    rbx, 13
+L101:
+    WORD $0x3b80; BYTE $0x00     //    cmp    BYTE [rbx], 0
+    JNE  L79
+    LONG $0xf7536348             //    movsxd    rdx, DWORD -9[rbx]
+    LONG $0x04e2c148             //    sal    rdx, 4
+    WORD $0x014c; BYTE $0xda     //    add    rdx, r11
+    LONG $0x00ff7b80             //    cmp    BYTE -1[rbx], 0
+    JNE  L80
+    WORD $0x394c; BYTE $0xda     //    cmp    rdx, r11
+    JBE  L169
+    LONG $0x24848b4d; LONG $0x00000088 //    mov    r8, QWORD 136[r12]
+    LONG $0xc057f8c5             //    vxorps    xmm0, xmm0, xmm0
+    WORD $0x894c; BYTE $0xcf     //    mov    rdi, r9
+    WORD $0x894c; BYTE $0xd9     //    mov    rcx, r11
+L99:
+    WORD $0x6348; BYTE $0x01     //    movsxd    rax, DWORD [rcx]
+    LONG $0xc5348d48; LONG $0x00000000 //    lea    rsi, 0[0+rax*8]
+    LONG $0x07e0c148             //    sal    rax, 7
+    WORD $0x2948; BYTE $0xf0     //    sub    rax, rsi
+    WORD $0x014c; BYTE $0xc0     //    add    rax, r8
+    LONG $0x30708b4c             //    mov    r14, QWORD 48[rax]
+    LONG $0x28708b48             //    mov    rsi, QWORD 40[rax]
+    LONG $0x16348b42             //    mov    esi, DWORD [rsi+r10]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x38708b4c             //    mov    r14, QWORD 56[rax]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x40708b4c             //    mov    r14, QWORD 64[rax]
+    LONG $0x16340343             //    add    esi, DWORD [r14+r10]
+    LONG $0x08708b4c             //    mov    r14, QWORD 8[rax]
+    LONG $0x2ae2e1c4; BYTE $0xde //    vcvtsi2ss    xmm3, xmm3, rsi
+    WORD $0x8b48; BYTE $0x30     //    mov    rsi, QWORD [rax]
+    LONG $0x16348b42             //    mov    esi, DWORD [rsi+r10]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x10708b4c             //    mov    r14, QWORD 16[rax]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x18708b4c             //    mov    r14, QWORD 24[rax]
+    LONG $0x16340343             //    add    esi, DWORD [r14+r10]
+    LONG $0x5859e2c5; BYTE $0x48 //    vmulss    xmm3, xmm3, DWORD 72[rax]
+    LONG $0x2af2e1c4; BYTE $0xce //    vcvtsi2ss    xmm1, xmm1, rsi
+    LONG $0x9961e2c4; WORD $0x2048 //    vfmadd132ss    xmm1, xmm3, DWORD 32[rax]
+    LONG $0x5959eac5; BYTE $0x0c //    vmulss    xmm3, xmm2, DWORD 12[rcx]
+    LONG $0xcb2ef8c5             //    vucomiss    xmm1, xmm3
+    WORD $0x1948; BYTE $0xc0     //    sbb    rax, rax
+    LONG $0x10c18348             //    add    rcx, 16
+    LONG $0x08c78348             //    add    rdi, 8
+    WORD $0xf748; BYTE $0xd0     //    not    rax
+    WORD $0xe083; BYTE $0x04     //    and    eax, 4
+    LONG $0x4458fac5; WORD $0xf807 //    vaddss    xmm0, xmm0, DWORD -8[rdi+rax]
+    WORD $0x3948; BYTE $0xca     //    cmp    rdx, rcx
+	  JA   L99
+L229:
+    WORD $0x294c; BYTE $0xda     //    sub    rdx, r11
+    LONG $0x00000fb8; BYTE $0x00 //    mov    eax, 15
+    LONG $0x02448d48; BYTE $0xf0 //    lea    rax, -16[rdx+rax]
+    LONG $0x4b10fac5; BYTE $0xfb //    vmovss    xmm1, DWORD -5[rbx]
+    LONG $0x04e8c148             //    shr    rax, 4
+    LONG $0x01c08348             //    add    rax, 1
+    WORD $0x8948; BYTE $0xc2     //    mov    rdx, rax
+    LONG $0xc10c8d4d             //    lea    r9, [r9+rax*8]
+    LONG $0x04e2c148             //    sal    rdx, 4
+    WORD $0x0149; BYTE $0xd3     //    add    r11, rdx
+    LONG $0xc82ef8c5             //    vucomiss    xmm1, xmm0
+	  JA   L242
+L79:
+    LONG $0x01c58341             //    add    r13d, 1
+    LONG $0x10c38348             //    add    rbx, 16
+    LONG $0x24ac3944; LONG $0x00000160 //    cmp    DWORD 352[rsp], r13d
+	  JG   L101
+L220:
+    LONG $0x000001b8; BYTE $0x00 //    mov    eax, 1
+	  JMP  L78
+L80:
+    WORD $0x394c; BYTE $0xda     //    cmp    rdx, r11
+	  JBE  L169
+    LONG $0x24848b4d; LONG $0x00000088 //    mov    r8, QWORD 136[r12]
+    LONG $0xc057f8c5             //    vxorps    xmm0, xmm0, xmm0
+    WORD $0x894c; BYTE $0xcf     //    mov    rdi, r9
+    WORD $0x894c; BYTE $0xd9     //    mov    rcx, r11
+L93:
+    WORD $0x6348; BYTE $0x01     //    movsxd    rax, DWORD [rcx]
+    LONG $0xc5348d48; LONG $0x00000000 //    lea    rsi, 0[0+rax*8]
+    LONG $0x07e0c148             //    sal    rax, 7
+    WORD $0x2948; BYTE $0xf0     //    sub    rax, rsi
+    WORD $0x014c; BYTE $0xc0     //    add    rax, r8
+    LONG $0x30708b4c             //    mov    r14, QWORD 48[rax]
+    LONG $0x28708b48             //    mov    rsi, QWORD 40[rax]
+    LONG $0x16348b42             //    mov    esi, DWORD [rsi+r10]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x38708b4c             //    mov    r14, QWORD 56[rax]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x40708b4c             //    mov    r14, QWORD 64[rax]
+    LONG $0x16340343             //    add    esi, DWORD [r14+r10]
+    LONG $0x08708b4c             //    mov    r14, QWORD 8[rax]
+    LONG $0x2ae2e1c4; BYTE $0xde //    vcvtsi2ss    xmm3, xmm3, rsi
+    WORD $0x8b48; BYTE $0x30     //    mov    rsi, QWORD [rax]
+    LONG $0x16348b42             //    mov    esi, DWORD [rsi+r10]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x10708b4c             //    mov    r14, QWORD 16[rax]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x18708b4c             //    mov    r14, QWORD 24[rax]
+    LONG $0x16340343             //    add    esi, DWORD [r14+r10]
+    LONG $0x5859e2c5; BYTE $0x48 //    vmulss    xmm3, xmm3, DWORD 72[rax]
+    LONG $0x2af2e1c4; BYTE $0xce //    vcvtsi2ss    xmm1, xmm1, rsi
+    LONG $0x50708b48             //    mov    rsi, QWORD 80[rax]
+    WORD $0x8548; BYTE $0xf6     //    test    rsi, rsi
+    LONG $0x9961e2c4; WORD $0x2048 //    vfmadd132ss    xmm1, xmm3, DWORD 32[rax]
+	  JE   L87
+    LONG $0x58708b4c             //    mov    r14, QWORD 88[rax]
+    LONG $0x16348b42             //    mov    esi, DWORD [rsi+r10]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x60708b4c             //    mov    r14, QWORD 96[rax]
+    LONG $0x16342b43             //    sub    esi, DWORD [r14+r10]
+    LONG $0x68708b4c             //    mov    r14, QWORD 104[rax]
+    LONG $0x16340343             //    add    esi, DWORD [r14+r10]
+    LONG $0x2ae2e1c4; BYTE $0xde //    vcvtsi2ss    xmm3, xmm3, rsi
+    LONG $0xb961e2c4; WORD $0x7048 //    vfmadd231ss    xmm1, xmm3, DWORD 112[rax]
+L87:
+    LONG $0x5959eac5; BYTE $0x0c //    vmulss    xmm3, xmm2, DWORD 12[rcx]
+    LONG $0xcb2ef8c5             //    vucomiss    xmm1, xmm3
+    WORD $0x1948; BYTE $0xc0     //    sbb    rax, rax
+    LONG $0x10c18348             //    add    rcx, 16
+    LONG $0x08c78348             //    add    rdi, 8
+    WORD $0xf748; BYTE $0xd0     //    not    rax
+    WORD $0xe083; BYTE $0x04     //    and    eax, 4
+    LONG $0x4458fac5; WORD $0xf807 //    vaddss    xmm0, xmm0, DWORD -8[rdi+rax]
+    WORD $0x3948; BYTE $0xca     //    cmp    rdx, rcx
+	  JA   L93
+	  JMP  L229
+L169:
+    LONG $0xc057f8c5             //    vxorps    xmm0, xmm0, xmm0
+    LONG $0x4b10fac5; BYTE $0xfb //    vmovss    xmm1, DWORD -5[rbx]
+    LONG $0xc82ef8c5             //    vucomiss    xmm1, xmm0
+	  JBE  L79
+L242:
+    WORD $0xf741; BYTE $0xdd     //    neg    r13d
+    WORD $0xc031                 //    xor    eax, eax
+    WORD $0x8545; BYTE $0xed     //    test    r13d, r13d
+    WORD $0x9f0f; BYTE $0xd0     //    setg    al
+L78:
+    LONG $0xbc848942; LONG $0x00000180 //    mov    DWORD 384[rsp+r15*4], eax
+    LONG $0x846ffdc5; LONG $0x00018024; BYTE $0x00 //    vmovdqa    ymm0, 384[rsp]
+	  JMP  L66
+L237:
+    WORD $0x8948; BYTE $0xc1     //    mov    rcx, rax
+	  JMP  L11
+L239:
+    LONG $0xc128f8c5             //    vmovaps    xmm0, xmm1
+    LONG $0x5c117ac5; WORD $0x5824 //    vmovss    DWORD 88[rsp], xmm11
+    LONG $0xb411fac5; LONG $0x0000e024; BYTE $0x00 //    vmovss    DWORD 224[rsp], xmm6
+    LONG $0x64297cc5; WORD $0x6024 //    vmovaps     96[rsp], ymm12
+    LONG $0x847f7dc5; LONG $0x00008024; BYTE $0x00 //    vmovdqa     128[rsp], ymm8
+    LONG $0xac7f7dc5; LONG $0x0000a024; BYTE $0x00 //    vmovdqa     160[rsp], ymm13
+    LONG $0x8c7f7dc5; LONG $0x0000c024; BYTE $0x00 //    vmovdqa     192[rsp], ymm9
+    LONG $0x947f7dc5; LONG $0x00010024; BYTE $0x00 //    vmovdqa     256[rsp], ymm10
+    WORD $0xf8c5; BYTE $0x77     //    vzeroupper
+//    call    sqrtf@PLT
+    LONG $0x5c107ac5; WORD $0x5824 //    vmovss    xmm11, DWORD 88[rsp]
+    LONG $0xb410fac5; LONG $0x0000e024; BYTE $0x00 //    vmovss    xmm6, DWORD 224[rsp]
+    LONG $0x64287cc5; WORD $0x6024 //    vmovaps    ymm12,  96[rsp]
+    LONG $0x846f7dc5; LONG $0x00008024; BYTE $0x00 //    vmovdqa    ymm8,  128[rsp]
+    LONG $0xac6f7dc5; LONG $0x0000a024; BYTE $0x00 //    vmovdqa    ymm13,  160[rsp]
+    LONG $0x8c6f7dc5; LONG $0x0000c024; BYTE $0x00 //    vmovdqa    ymm9,  192[rsp]
+    LONG $0x946f7dc5; LONG $0x00010024; BYTE $0x00 //    vmovdqa    ymm10,  256[rsp]
+	  JMP  L113
+L167:
+    LONG $0x000006b8; BYTE $0x00 //    mov    eax, 6
+    LONG $0x000006ba; BYTE $0x00 //    mov    edx, 6
+	  JMP  L76
+L166:
+    LONG $0x000005b8; BYTE $0x00 //    mov    eax, 5
+    LONG $0x000005ba; BYTE $0x00 //    mov    edx, 5
+	  JMP  L76
+L165:
+    LONG $0x000004b8; BYTE $0x00 //    mov    eax, 4
+    LONG $0x000004ba; BYTE $0x00 //    mov    edx, 4
+	  JMP  L76
+L164:
+    LONG $0x000003b8; BYTE $0x00 //    mov    eax, 3
+    LONG $0x000003ba; BYTE $0x00 //    mov    edx, 3
+	  JMP  L76
+L163:
+    LONG $0x000002b8; BYTE $0x00 //    mov    eax, 2
+    LONG $0x000002ba; BYTE $0x00 //    mov    edx, 2
+	  JMP  L76
+L162:
+    LONG $0x000001b8; BYTE $0x00 //    mov    eax, 1
+    LONG $0x000001ba; BYTE $0x00 //    mov    edx, 1
+	  JMP  L76
                                  //
+
 
 DATA LC1<>+0x000(SB)/8, $0x0405060700010203
 DATA LC1<>+0x008(SB)/8, $0x0c0d0e0f08090a0b

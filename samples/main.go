@@ -6,5 +6,7 @@ func main() {
 
 	// gocvsimd.Reorder()
 
-	gocvsimd.Detection()
+	// gocvsimd.Detection()
+
+	gocvsimd.SimdAvx2BgraToGrayTest()
 }

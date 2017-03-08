@@ -17,9 +17,9 @@
 package gocvsimd
 
 import (
+	"fmt"
 	"testing"
 	"github.com/fwessels/go-cv"
-	"github.com/cloudflare/go/src/fmt"
 )
 
 func TestAvx2BgraToGray(t *testing.T) {

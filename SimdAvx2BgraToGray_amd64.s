@@ -4,24 +4,12 @@
 TEXT ·_SimdAvx2BgraToGray(SB), 7, $0
 
 	// Load golang arguments into respective registers for standard 64-bit function call interface
-
-	// Parameter 1: const HidHaarCascade & hid
-	MOVQ hid+0(FP), DI // rdi = hid
-
-	// Parameter 2: const Image & mask
-	MOVQ mask+8(FP), SI // rsi = mask
-
-	// Parameter 3: const Rect & rect
-	MOVQ rect+16(FP), DX // rdx = rect
-
-	// Parameter 4: Image & dst
-	MOVQ dst+24(FP), CX // rcx = dst
-
-	// Parameter 5: Buffer<uint32_t>* pbuffer
-	MOVQ buffer+32(FP), R8 // r8 = buffer
-
-	// Parameter 6: stack pointer
-	MOVQ stack+40(FP), R9 // r9 = stack pointer
+	MOVQ hid+0(FP), DI // rdi = arg1
+	MOVQ mask+8(FP), SI // rsi = arg2
+	MOVQ rect+16(FP), DX // rdx = arg3
+	MOVQ dst+24(FP), CX // rcx = arg4
+	MOVQ buffer+32(FP), R8 // r8 = arg5
+	MOVQ stack+40(FP), R9 // r9 = arg6
 
 	// Setup base pointer for loading constants
 	LEAQ LCBGRATOGRAY<>(SB), BP

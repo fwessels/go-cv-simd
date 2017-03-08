@@ -16,11 +16,3 @@ func SimdAvx2BgraToGray(bgra, gray gocv.View) {
 	// Call into golang assembly
 	_SimdAvx2BgraToGray(bgra.GetData(), uint64(bgra.GetWidth()), uint64(bgra.GetHeight()), uint64(bgra.GetStride()), gray.GetData(), uint64(gray.GetStride()))
 }
-
-func SimdAvx2BgraToGrayTest() {
-
-	bgra, _ := SimdSetup(gocv.BGRA32)
-	_, gray := SimdSetup(gocv.GRAY8)
-
-	SimdAvx2BgraToGray(bgra, gray)
-}

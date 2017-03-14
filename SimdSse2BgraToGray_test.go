@@ -44,6 +44,6 @@ func TestSse2BgraToGray(t *testing.T) {
 
 	copy(dst[:], (*[Resolution*Resolution]byte)(gray.GetData())[:])
 
-	fmt.Println(dst)
+	fmt.Println(dst[:64])
 }
 

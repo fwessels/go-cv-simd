@@ -42,7 +42,7 @@ func TestSse2AlphaBlending(t *testing.T) {
 
 	copy(result[:], (*[Resolution*Resolution*4]byte)(dst.GetData())[:])
 
-	fmt.Println(result[:256])
+	fmt.Println(result[:128])
 
 }
 

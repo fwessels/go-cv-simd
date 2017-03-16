@@ -18,6 +18,9 @@ GLOBL LCDATA1<>(SB), 8, $96
 TEXT gocvsimd·_memcpy(SB), 7, $0
     RET
 
+TEXT gocvsimd·_floor(SB), 7, $0
+    RET
+
 TEXT ·_SimdSse2ShiftBilinear(SB), 7, $0
 
 	MOVQ arg1+0(FP), DI
@@ -109,24 +112,24 @@ LBB0_10:
 	WORD $0x8948; BYTE $0xdf     // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xee     // mov    rsi, r13
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xd0 // mov    rax, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x05748d49; BYTE $0x00 // lea    rsi, [r13 + rax]
 	LONG $0x24448b48; BYTE $0x78 // mov    rax, qword 120[rsp] /* [rbp + 80] */
 	LONG $0x033c8d48             // lea    rdi, [rbx + rax]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xa8 // mov    rax, qword -88[rsp] /* [rbp - 88] */
 	LONG $0x05748d49; BYTE $0x00 // lea    rsi, [r13 + rax]
 	LONG $0x333c8d4a             // lea    rdi, [rbx + r14]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xb8 // mov    rax, qword -72[rsp] /* [rbp - 72] */
 	LONG $0x05748d49; BYTE $0x00 // lea    rsi, [r13 + rax]
 	LONG $0x24448b48; BYTE $0x98 // mov    rax, qword -104[rsp] /* [rbp - 104] */
 	LONG $0x033c8d48             // lea    rdi, [rbx + rax]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x246c034c; BYTE $0xb0 // add    r13, qword -80[rsp] /* [rbp - 80] */
 	LONG $0x245c0348; BYTE $0x90 // add    rbx, qword -112[rsp] /* [rbp - 112] */
 	LONG $0xfcc48349             // add    r12, -4
@@ -165,7 +168,7 @@ LBB0_15:
 	LONG $0x24448b48; BYTE $0xa0 // mov    rax, qword -96[rsp] /* [rbp - 96] */
 	LONG $0x38348d4a             // lea    rsi, [rax + r15]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x247c034c; BYTE $0xd0 // add    r15, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x245c0348; BYTE $0x78 // add    rbx, qword 120[rsp] /* [rbp + 80] */
 	WORD $0xff49; BYTE $0xc4     // inc    r12
@@ -201,24 +204,24 @@ LBB0_18:
 	WORD $0x8948; BYTE $0xdf     // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xfe     // mov    rsi, r15
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0x78 // mov    rax, qword 120[rsp] /* [rbp + 80] */
 	LONG $0x033c8d48             // lea    rdi, [rbx + rax]
 	LONG $0x24448b48; BYTE $0xd0 // mov    rax, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x07348d49             // lea    rsi, [r15 + rax]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xb0 // mov    rax, qword -80[rsp] /* [rbp - 80] */
 	LONG $0x033c8d48             // lea    rdi, [rbx + rax]
 	LONG $0x27348d4b             // lea    rsi, [r15 + r12]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xc8 // mov    rax, qword -56[rsp] /* [rbp - 56] */
 	LONG $0x033c8d48             // lea    rdi, [rbx + rax]
 	LONG $0x24448b48; BYTE $0xa8 // mov    rax, qword -88[rsp] /* [rbp - 88] */
 	LONG $0x07348d49             // lea    rsi, [r15 + rax]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x245c0348; BYTE $0xb8 // add    rbx, qword -72[rsp] /* [rbp - 72] */
 	LONG $0x247c034c; BYTE $0x98 // add    r15, qword -104[rsp] /* [rbp - 104] */
 	LONG $0xfcc68349             // add    r14, -4
@@ -260,7 +263,7 @@ LBB0_24:
 	LONG $0x24448b48; BYTE $0xa0 // mov    rax, qword -96[rsp] /* [rbp - 96] */
 	LONG $0x18348d48             // lea    rsi, [rax + rbx]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x245c0348; BYTE $0xd0 // add    rbx, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x2464034c; BYTE $0x78 // add    r12, qword 120[rsp] /* [rbp + 80] */
 	WORD $0xff49; BYTE $0xc5     // inc    r13
@@ -297,24 +300,24 @@ LBB0_27:
 	WORD $0x894c; BYTE $0xe7     // mov    rdi, r12
 	WORD $0x8948; BYTE $0xde     // mov    rsi, rbx
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0x78 // mov    rax, qword 120[rsp] /* [rbp + 80] */
 	LONG $0x043c8d49             // lea    rdi, [r12 + rax]
 	LONG $0x24448b48; BYTE $0xd0 // mov    rax, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x03348d48             // lea    rsi, [rbx + rax]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xb0 // mov    rax, qword -80[rsp] /* [rbp - 80] */
 	LONG $0x043c8d49             // lea    rdi, [r12 + rax]
 	LONG $0x2b348d4a             // lea    rsi, [rbx + r13]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xc8 // mov    rax, qword -56[rsp] /* [rbp - 56] */
 	LONG $0x043c8d49             // lea    rdi, [r12 + rax]
 	LONG $0x24448b48; BYTE $0xa8 // mov    rax, qword -88[rsp] /* [rbp - 88] */
 	LONG $0x03348d48             // lea    rsi, [rbx + rax]
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x2464034c; BYTE $0xb8 // add    r12, qword -72[rsp] /* [rbp - 72] */
 	LONG $0x245c0348; BYTE $0x98 // add    rbx, qword -104[rsp] /* [rbp - 104] */
 	LONG $0xfcc68349             // add    r14, -4
@@ -362,7 +365,7 @@ LBB0_33:
 	LONG $0x24448b48; BYTE $0xa0 // mov    rax, qword -96[rsp] /* [rbp - 96] */
 	LONG $0x18348d48             // lea    rsi, [rax + rbx]
 	WORD $0x894c; BYTE $0xf2     // mov    rdx, r14
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x245c0348; BYTE $0xd0 // add    rbx, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x247c034c; BYTE $0x78 // add    r15, qword 120[rsp] /* [rbp + 80] */
 	WORD $0xff49; BYTE $0xc4     // inc    r12
@@ -401,25 +404,25 @@ LBB0_36:
 	WORD $0x894c; BYTE $0xff     // mov    rdi, r15
 	WORD $0x8948; BYTE $0xde     // mov    rsi, rbx
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0x78 // mov    rax, qword 120[rsp] /* [rbp + 80] */
 	LONG $0x073c8d49             // lea    rdi, [r15 + rax]
 	LONG $0x24448b48; BYTE $0xd0 // mov    rax, qword -48[rsp] /* [rbp - 48] */
 	LONG $0x03348d48             // lea    rsi, [rbx + rax]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xb0 // mov    rax, qword -80[rsp] /* [rbp - 80] */
 	LONG $0x073c8d49             // lea    rdi, [r15 + rax]
 	LONG $0x24448b48; BYTE $0x90 // mov    rax, qword -112[rsp] /* [rbp - 112] */
 	LONG $0x03348d48             // lea    rsi, [rbx + rax]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xc8 // mov    rax, qword -56[rsp] /* [rbp - 56] */
 	LONG $0x073c8d49             // lea    rdi, [r15 + rax]
 	LONG $0x24448b48; BYTE $0xa8 // mov    rax, qword -88[rsp] /* [rbp - 88] */
 	LONG $0x03348d48             // lea    rsi, [rbx + rax]
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x247c034c; BYTE $0xb8 // add    r15, qword -72[rsp] /* [rbp - 72] */
 	LONG $0x245c0348; BYTE $0x98 // add    rbx, qword -104[rsp] /* [rbp - 104] */
 	LONG $0xfcc68349             // add    r14, -4
@@ -462,14 +465,14 @@ LBB0_37:
 	LONG $0x24848948; LONG $0xffffff38         // mov    qword -200[rsp], rax /* [rbp - 200] */
 	LONG $0x45580ff2; BYTE $0x00               // addsd    xmm0, qword 0[rbp] /* [rip + LCPI0_0] */
 	LONG $0x44110ff2; WORD $0xb024             // movsd    qword -80[rsp], xmm0 /* [rbp - 80] */
-	// CALL _floor(SB)
+	CALL gocvsimd·_floor(SB)
 	LONG $0x2c0f4cf2; BYTE $0xf0               // cvttsd2si    r14, xmm0
 	LONG $0x24b4894c; LONG $0xffffff40         // mov    qword -192[rsp], r14 /* [rbp - 192] */
 	LONG $0x24448b48; BYTE $0x48               // mov    rax, qword 72[rsp] /* [rbp + 32] */
 	LONG $0x45100ff2; BYTE $0x00               // movsd    xmm0, qword 0[rbp] /* [rip + LCPI0_0] */
 	LONG $0x00580ff2                           // addsd    xmm0, qword [rax]
 	LONG $0x44110ff2; WORD $0xc824             // movsd    qword -56[rsp], xmm0 /* [rbp - 56] */
-	// CALL _floor(SB)
+	CALL gocvsimd·_floor(SB)
 	LONG $0x2c0f4cf2; BYTE $0xf8               // cvttsd2si    r15, xmm0
 	LONG $0x24bc894c; LONG $0xffffff48         // mov    qword -184[rsp], r15 /* [rbp - 184] */
 	WORD $0x570f; BYTE $0xc0                   // xorps    xmm0, xmm0
@@ -478,7 +481,7 @@ LBB0_37:
 	LONG $0xc85c0ff2                           // subsd    xmm1, xmm0
 	LONG $0x4d590ff2; BYTE $0x08               // mulsd    xmm1, qword 8[rbp] /* [rip + LCPI0_1] */
 	LONG $0xc1280f66                           // movapd    xmm0, xmm1
-	// CALL _floor(SB)
+	CALL gocvsimd·_floor(SB)
 	LONG $0xd82c0ff2                           // cvttsd2si    ebx, xmm0
 	LONG $0xf4249c89; WORD $0xfffe; BYTE $0xff // mov    dword -268[rsp], ebx /* [rbp - 268] */
 	WORD $0x570f; BYTE $0xc0                   // xorps    xmm0, xmm0
@@ -487,7 +490,7 @@ LBB0_37:
 	LONG $0xc85c0ff2                           // subsd    xmm1, xmm0
 	LONG $0x4d590ff2; BYTE $0x08               // mulsd    xmm1, qword 8[rbp] /* [rip + LCPI0_1] */
 	LONG $0xc1280f66                           // movapd    xmm0, xmm1
-	// CALL _floor(SB)
+	CALL gocvsimd·_floor(SB)
 	LONG $0xc82c0ff2                           // cvttsd2si    ecx, xmm0
 	LONG $0x24248c89; WORD $0xffff; BYTE $0xff // mov    dword -220[rsp], ecx /* [rbp - 220] */
 	WORD $0xd889                               // mov    eax, ebx
@@ -567,7 +570,7 @@ LBB0_44:
 	LONG $0x273c8d4b             // lea    rdi, [r15 + r12]
 	WORD $0x8949; BYTE $0xcc     // mov    r12, rcx
 	WORD $0x8948; BYTE $0xc3     // mov    rbx, rax
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x8948; BYTE $0xd8     // mov    rax, rbx
 	LONG $0x245c8b48; BYTE $0xb0 // mov    rbx, qword -80[rsp] /* [rbp - 80] */
 	WORD $0x894c; BYTE $0xe1     // mov    rcx, r12
@@ -638,25 +641,25 @@ LBB0_47:
 	LONG $0x183c8d48                   // lea    rdi, [rax + rbx]
 	WORD $0x8949; BYTE $0xd7           // mov    r15, rdx
 	WORD $0x894d; BYTE $0xc4           // mov    r12, r8
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24848b48; LONG $0xffffff68 // mov    rax, qword -152[rsp] /* [rbp - 152] */
 	LONG $0x05748d49; BYTE $0x00       // lea    rsi, [r13 + rax]
 	LONG $0x24848b48; LONG $0xffffff70 // mov    rax, qword -144[rsp] /* [rbp - 144] */
 	LONG $0x183c8d48                   // lea    rdi, [rax + rbx]
 	WORD $0x894c; BYTE $0xfa           // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24848b48; LONG $0xffffff78 // mov    rax, qword -136[rsp] /* [rbp - 136] */
 	LONG $0x05748d49; BYTE $0x00       // lea    rsi, [r13 + rax]
 	LONG $0x24448b48; BYTE $0x80       // mov    rax, qword -128[rsp] /* [rbp - 128] */
 	LONG $0x183c8d48                   // lea    rdi, [rax + rbx]
 	WORD $0x894c; BYTE $0xfa           // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x24448b48; BYTE $0xb0       // mov    rax, qword -80[rsp] /* [rbp - 80] */
 	LONG $0x05748d49; BYTE $0x00       // lea    rsi, [r13 + rax]
 	LONG $0x24448b48; BYTE $0xc8       // mov    rax, qword -56[rsp] /* [rbp - 56] */
 	LONG $0x183c8d48                   // lea    rdi, [rax + rbx]
 	WORD $0x894c; BYTE $0xfa           // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x894d; BYTE $0xe0           // mov    r8, r12
 	WORD $0x894c; BYTE $0xfa           // mov    rdx, r15
 	LONG $0x246c034c; BYTE $0x88       // add    r13, qword -120[rsp] /* [rbp - 120] */
@@ -695,7 +698,7 @@ LBB0_50:
 	WORD $0x8949; BYTE $0xf4     // mov    r12, rsi
 	WORD $0x8948; BYTE $0xde     // mov    rsi, rbx
 	LONG $0x24548b48; BYTE $0xc8 // mov    rdx, qword -56[rsp] /* [rbp - 56] */
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x894c; BYTE $0xe6     // mov    rsi, r12
 	WORD $0x0149; BYTE $0xf7     // add    r15, rsi
 	WORD $0x014c; BYTE $0xeb     // add    rbx, r13
@@ -736,7 +739,7 @@ LBB0_54:
 	WORD $0x894c; BYTE $0xfe     // mov    rsi, r15
 	WORD $0x894d; BYTE $0xec     // mov    r12, r13
 	WORD $0x8949; BYTE $0xd5     // mov    r13, rdx
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x894c; BYTE $0xea     // mov    rdx, r13
 	WORD $0x894d; BYTE $0xe5     // mov    r13, r12
 	LONG $0x24448b48; BYTE $0x78 // mov    rax, qword 120[rsp] /* [rbp + 80] */
@@ -787,7 +790,7 @@ LBB0_58:
 	WORD $0x8948; BYTE $0xdf     // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6     // mov    rsi, r12
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x245c0348; BYTE $0x78 // add    rbx, qword 120[rsp] /* [rbp + 80] */
 	WORD $0x014d; BYTE $0xec     // add    r12, r13
 	WORD $0xff49; BYTE $0xce     // dec    r14
@@ -2020,7 +2023,7 @@ LBB0_144:
 	WORD $0x894c; BYTE $0xf7     // mov    rdi, r14
 	WORD $0x894c; BYTE $0xee     // mov    rsi, r13
 	WORD $0x894c; BYTE $0xfa     // mov    rdx, r15
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x246c034c; BYTE $0xd0 // add    r13, qword -48[rsp] /* [rbp - 48] */
 	WORD $0x014d; BYTE $0xe6     // add    r14, r12
 	WORD $0xff48; BYTE $0xc3     // inc    rbx
@@ -2486,49 +2489,49 @@ LBB0_147:
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	LONG $0x24ac8b4c; LONG $0xffffff60 // mov    r13, qword -160[rsp] /* [rbp - 160] */
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x014d; BYTE $0xf4           // add    r12, r14
 	WORD $0x8948; BYTE $0xdf           // mov    rdi, rbx
 	WORD $0x894c; BYTE $0xe6           // mov    rsi, r12
 	WORD $0x894c; BYTE $0xea           // mov    rdx, r13
-	// CALL _memcpy(SB)
+	CALL gocvsimd·_memcpy(SB)
 	LONG $0x248c8b48; LONG $0xfffffeb8 // mov    rcx, qword -328[rsp] /* [rbp - 328] */
 	WORD $0x014c; BYTE $0xfb           // add    rbx, r15
 	WORD $0x8948; BYTE $0xda           // mov    rdx, rbx

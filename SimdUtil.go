@@ -3,7 +3,6 @@ package gocvsimd
 import (
 	"fmt"
 	"unsafe"
-	"github.com/fwessels/go-cv"
 )
 
 // buffer of pending write data
@@ -20,9 +19,9 @@ func PrintBytes(str string, p unsafe.Pointer, len uintptr) {
 	fmt.Println(str, "bytes:", buf)
 }
 
-func SimdSetup(f gocv.Format) (gocv.View, gocv.View) {
+func SimdSetup(f Format) (View, View) {
 
-	a, b := gocv.View{}, gocv.View{}
+	a, b := View{}, View{}
 	a.Recreate(Resolution, Resolution, f)
 	b.Recreate(Resolution, Resolution, f)
 

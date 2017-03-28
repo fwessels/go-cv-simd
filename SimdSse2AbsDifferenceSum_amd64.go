@@ -3,10 +3,7 @@
 
 package gocvsimd
 
-import (
-	"unsafe"
-	"github.com/fwessels/go-cv"
-)
+import "unsafe"
 
 //go:noescape
 func _SimdSse2AbsDifferenceSum(a unsafe.Pointer, aStride uint64, b unsafe.Pointer, bStride uint64, width, height uint64, sum unsafe.Pointer)
@@ -21,7 +18,7 @@ func _SimdSse2AbsDifferenceSums3x3(current unsafe.Pointer, currentStride uint64,
 func _SimdSse2AbsDifferenceSums3x3Masked(current unsafe.Pointer, currentStride uint64, background unsafe.Pointer, backgroundStride uint64, mask unsafe.Pointer, maskStride uint64, index uint8, width, height uint64, sums unsafe.Pointer)
 
 //
-func SimdSse2AbsDifferenceSum(a, b gocv.View) uint64 {
+func SimdSse2AbsDifferenceSum(a, b View) uint64 {
 
 	sum := uint64(0)
 
@@ -31,7 +28,7 @@ func SimdSse2AbsDifferenceSum(a, b gocv.View) uint64 {
 }
 
 //
-func SimdSse2AbsDifferenceSumMasked(a, b, mask gocv.View, index uint8) uint64 {
+func SimdSse2AbsDifferenceSumMasked(a, b, mask View, index uint8) uint64 {
 
 	sum := uint64(0)
 
@@ -41,7 +38,7 @@ func SimdSse2AbsDifferenceSumMasked(a, b, mask gocv.View, index uint8) uint64 {
 }
 
 //
-func SimdSse2AbsDifferenceSums3x3(current, background gocv.View) [9]uint64 {
+func SimdSse2AbsDifferenceSums3x3(current, background View) [9]uint64 {
 
 	sums := [9]uint64{}
 
@@ -50,7 +47,7 @@ func SimdSse2AbsDifferenceSums3x3(current, background gocv.View) [9]uint64 {
 	return sums
 }
 
-func SimdSse2AbsDifferenceSums3x3Masked(current, background, mask gocv.View, index uint8) [9]uint64 {
+func SimdSse2AbsDifferenceSums3x3Masked(current, background, mask View, index uint8) [9]uint64 {
 
 	sums := [9]uint64{}
 

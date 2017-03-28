@@ -19,7 +19,6 @@ package gocvsimd
 import (
 	"fmt"
 	"testing"
-	"github.com/fwessels/go-cv"
 )
 
 func TestAvx2BgraToGray(t *testing.T) {
@@ -33,18 +32,17 @@ func TestAvx2BgraToGray(t *testing.T) {
 		src[3+i*4] = byte(i)
 	}
 
-	bgra, _ := SimdSetup(gocv.BGRA32)
-	_, gray := SimdSetup(gocv.GRAY8)
+	bgra, _ := SimdSetup(BGRA32)
+	_, gray := SimdSetup(GRAY8)
 
-	copy((*[Resolution*Resolution*4]byte)(bgra.GetData())[:], src[:])
+	copy((*[Resolution * Resolution * 4]byte)(bgra.GetData())[:], src[:])
 
-	// gocv.BgrToGray(bgra, gray)
+	// BgrToGray(bgra, gray)
 	SimdAvx2BgraToGray(bgra, gray)
 
 	dst := make([]byte, Resolution*Resolution)
 
-	copy(dst[:], (*[Resolution*Resolution]byte)(gray.GetData())[:])
+	copy(dst[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
 	fmt.Println(dst[:64])
 }
-

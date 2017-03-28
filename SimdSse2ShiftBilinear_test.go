@@ -19,7 +19,6 @@ package gocvsimd
 import (
 	"fmt"
 	"testing"
-	"github.com/fwessels/go-cv"
 )
 
 func TestSimdSse2ShiftBilinear(t *testing.T) {
@@ -30,17 +29,17 @@ func TestSimdSse2ShiftBilinear(t *testing.T) {
 		pixels[i] = byte(i)
 	}
 
-	src, bkg := SimdSetup(gocv.BGRA32)
-	dst, _ := SimdSetup(gocv.BGRA32)
+	src, bkg := SimdSetup(BGRA32)
+	dst, _ := SimdSetup(BGRA32)
 
-	copy((*[Resolution*Resolution*4]byte)(src.GetData())[:], pixels[:])
-	copy((*[Resolution*Resolution*4]byte)(bkg.GetData())[:], pixels[:])
+	copy((*[Resolution * Resolution * 4]byte)(src.GetData())[:], pixels[:])
+	copy((*[Resolution * Resolution * 4]byte)(bkg.GetData())[:], pixels[:])
 
 	SimdSse2ShiftBilinear(src, bkg, dst)
 
 	result := make([]byte, Resolution*Resolution*4)
 
-	copy(result[:], (*[Resolution*Resolution*4]byte)(dst.GetData())[:])
+	copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
 
 	fmt.Println(result[:128])
 }

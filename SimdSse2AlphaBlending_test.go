@@ -19,7 +19,6 @@ package gocvsimd
 import (
 	"fmt"
 	"testing"
-	"github.com/fwessels/go-cv"
 )
 
 func TestSse2AlphaBlending(t *testing.T) {
@@ -30,19 +29,18 @@ func TestSse2AlphaBlending(t *testing.T) {
 		pixels[i] = byte(i)
 	}
 
-	src, alpha := SimdSetup(gocv.BGRA32)
-	dst, _ := SimdSetup(gocv.BGRA32)
+	src, alpha := SimdSetup(BGRA32)
+	dst, _ := SimdSetup(BGRA32)
 
-	copy((*[Resolution*Resolution*4]byte)(src.GetData())[:], pixels[:])
-	copy((*[Resolution*Resolution*4]byte)(alpha.GetData())[:], pixels[:])
+	copy((*[Resolution * Resolution * 4]byte)(src.GetData())[:], pixels[:])
+	copy((*[Resolution * Resolution * 4]byte)(alpha.GetData())[:], pixels[:])
 
 	SimdSse2AlphaBlending(src, alpha, dst)
 
 	result := make([]byte, Resolution*Resolution*4)
 
-	copy(result[:], (*[Resolution*Resolution*4]byte)(dst.GetData())[:])
+	copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
 
 	fmt.Println(result[:128])
 
 }
-

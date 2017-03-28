@@ -20,8 +20,8 @@
 package gocvsimd
 
 import (
-  "fmt"
-  
+	"fmt"
+
 	"unsafe"
 )
 
@@ -30,8 +30,8 @@ func _SimdSsse3Reorder32bit(src unsafe.Pointer, size uint64, dst unsafe.Pointer)
 
 func Reorder32bit(src *[]byte, size uint64, dst *[]byte) {
 
-  fmt.Println("src:", unsafe.Pointer(&(*src)[0]))
-  fmt.Println("dst:", unsafe.Pointer(&(*dst)[0]))
-  
+	fmt.Println("src:", unsafe.Pointer(&(*src)[0]))
+	fmt.Println("dst:", unsafe.Pointer(&(*dst)[0]))
+
 	_SimdSsse3Reorder32bit(unsafe.Pointer(&(*src)[0]), 16, unsafe.Pointer(&(*dst)[0]))
 }

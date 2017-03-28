@@ -5,6 +5,9 @@ DATA LCDATA1<>+0x000(SB)/8, $0x0000000000000000
 DATA LCDATA1<>+0x008(SB)/8, $0xff00000000000000
 GLOBL LCDATA1<>(SB), 8, $16
 
+TEXT gocvsimd·_bzero(SB), 7, $0
+	RET
+
 TEXT ·_SimdSse2SobelDx(SB), 7, $0
 
 	MOVQ arg1+0(FP), DI
@@ -353,10 +356,10 @@ TEXT ·_SimdSse2ContourAnchors(SB), 7, $0
 	JNE  LBB2_9
 	QUAD $0x00000138248c8944; QUAD $0x894ce6894cf7894c
 	LONG $0x01302484; WORD $0x0000
-	CALL ___bzero
+	CALL gocvsimd·_bzero(SB)
 	QUAD $0x0f48ff894ccfff49; QUAD $0x4cf7014c40247caf
 	WORD $0xe689
-	CALL ___bzero
+	CALL gocvsimd·_bzero(SB)
 	QUAD $0x00000130249c8b4c
 	LONG $0x02ff8349
 	JB   LBB2_13
@@ -457,10 +460,10 @@ LBB2_7:
 LBB2_9:
 	QUAD $0x00000138248c8944; QUAD $0x894ce6894cf7894c
 	LONG $0x01302484; WORD $0x0000
-	CALL ___bzero
+	CALL gocvsimd·_bzero(SB)
 	QUAD $0x0f48ff894ccfff49; QUAD $0x4cf7014c40247caf
 	WORD $0xe689
-	CALL ___bzero
+	CALL gocvsimd·_bzero(SB)
 	QUAD $0x00000130249c8b4c
 	LONG $0x02ff8349
 	JB   LBB2_13

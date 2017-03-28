@@ -19,7 +19,6 @@ package gocvsimd
 import (
 	"fmt"
 	"testing"
-	"github.com/fwessels/go-cv"
 )
 
 func TestSse2AbsGradientSaturatedSum(t *testing.T) {
@@ -30,15 +29,15 @@ func TestSse2AbsGradientSaturatedSum(t *testing.T) {
 		pixels[i] = 255*(byte(i)&1) - byte(i)*20
 	}
 
-	src, dst := SimdSetup(gocv.GRAY8)
+	src, dst := SimdSetup(GRAY8)
 
-	copy((*[Resolution*Resolution]byte)(src.GetData())[:], pixels[:])
+	copy((*[Resolution * Resolution]byte)(src.GetData())[:], pixels[:])
 
 	SimdSse2AbsGradientSaturatedSum(src, dst)
 
 	result := make([]byte, Resolution*Resolution)
 
-	copy(result[:], (*[Resolution*Resolution]byte)(dst.GetData())[:])
+	copy(result[:], (*[Resolution * Resolution]byte)(dst.GetData())[:])
 
 	fmt.Println(result[:128])
 

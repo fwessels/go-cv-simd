@@ -19,7 +19,6 @@ package gocvsimd
 import (
 	"fmt"
 	"testing"
-	"github.com/fwessels/go-cv"
 )
 
 func TestSse2Reorder(t *testing.T) {
@@ -30,15 +29,15 @@ func TestSse2Reorder(t *testing.T) {
 		src[i] = byte(i)
 	}
 
-	bgra, gray := SimdSetup(gocv.GRAY8)
+	bgra, gray := SimdSetup(GRAY8)
 
-	copy((*[Resolution*Resolution]byte)(bgra.GetData())[:], src[:])
+	copy((*[Resolution * Resolution]byte)(bgra.GetData())[:], src[:])
 
 	SimdSse2Reorder16bit(bgra, Resolution*Resolution, gray)
 
 	dst16 := make([]byte, Resolution*Resolution)
 
-	copy(dst16[:], (*[Resolution*Resolution]byte)(gray.GetData())[:])
+	copy(dst16[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
 	fmt.Println(dst16[:32])
 
@@ -46,7 +45,7 @@ func TestSse2Reorder(t *testing.T) {
 
 	dst32 := make([]byte, Resolution*Resolution)
 
-	copy(dst32[:], (*[Resolution*Resolution]byte)(gray.GetData())[:])
+	copy(dst32[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
 	fmt.Println(dst32[:32])
 
@@ -54,8 +53,7 @@ func TestSse2Reorder(t *testing.T) {
 
 	dst64 := make([]byte, Resolution*Resolution)
 
-	copy(dst64[:], (*[Resolution*Resolution]byte)(gray.GetData())[:])
+	copy(dst64[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
 	fmt.Println(dst64[:32])
 }
-

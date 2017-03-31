@@ -5,7 +5,7 @@ DATA LCDATA1<>+0x000(SB)/8, $0x0100010001000100
 DATA LCDATA1<>+0x008(SB)/8, $0x0100010001000100
 GLOBL LCDATA1<>(SB), 8, $16
 
-TEXT ·_SimdSse2AddFeatureDifference(SB), 7, $0
+TEXT ·_SimdSse2AddFeatureDifference(SB), 7, $0-88
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -13,7 +13,6 @@ TEXT ·_SimdSse2AddFeatureDifference(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
-
 	LEAQ LCDATA1<>(SB), BP
 
 	QUAD $0x8b4c482474b70f44; QUAD $0x5024448b48582454

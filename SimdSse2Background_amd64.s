@@ -5,7 +5,7 @@ DATA LCDATA1<>+0x000(SB)/8, $0x0101010101010101
 DATA LCDATA1<>+0x008(SB)/8, $0x0101010101010101
 GLOBL LCDATA1<>(SB), 8, $16
 
-TEXT ·_SimdSse2BackgroundGrowRangeSlow(SB), 7, $0
+TEXT ·_SimdSse2BackgroundGrowRangeSlow(SB), 7, $0-64
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -13,7 +13,6 @@ TEXT ·_SimdSse2BackgroundGrowRangeSlow(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
-
 	LEAQ LCDATA1<>(SB), BP
 
 	QUAD $0x7c8b4c4024548b4c; QUAD $0xe38348f389483824
@@ -215,7 +214,7 @@ LBB0_24:
 LBB0_52:
 	RET
 
-TEXT ·_SimdSse2BackgroundGrowRangeFast(SB), 7, $0
+TEXT ·_SimdSse2BackgroundGrowRangeFast(SB), 7, $0-64
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -223,6 +222,7 @@ TEXT ·_SimdSse2BackgroundGrowRangeFast(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
+
 	QUAD $0x6c8b4c4024548b4c; QUAD $0xe38348f389483824
 	LONG $0xf33948f0
 	JNE  LBB1_27
@@ -440,7 +440,7 @@ DATA LCDATA2<>+0x000(SB)/8, $0x0101010101010101
 DATA LCDATA2<>+0x008(SB)/8, $0x0101010101010101
 GLOBL LCDATA2<>(SB), 8, $16
 
-TEXT ·_SimdSse2BackgroundIncrementCount(SB), 7, $0
+TEXT ·_SimdSse2BackgroundIncrementCount(SB), 7, $0-96
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -448,7 +448,6 @@ TEXT ·_SimdSse2BackgroundIncrementCount(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
-
 	LEAQ LCDATA2<>(SB), BP
 
 	QUAD $0x5c8b4c6024548b4c; QUAD $0x4c48245c8b485824
@@ -671,7 +670,7 @@ DATA LCDATA3<>+0x000(SB)/8, $0x0101010101010101
 DATA LCDATA3<>+0x008(SB)/8, $0x0101010101010101
 GLOBL LCDATA3<>(SB), 8, $16
 
-TEXT ·_SimdSse2BackgroundAdjustRange(SB), 7, $0
+TEXT ·_SimdSse2BackgroundAdjustRange(SB), 7, $0-88
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -679,7 +678,6 @@ TEXT ·_SimdSse2BackgroundAdjustRange(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
-
 	LEAQ LCDATA3<>(SB), BP
 
 	QUAD $0x5c8b4c5824748a44; QUAD $0x4c4824648b4c5024
@@ -924,7 +922,7 @@ DATA LCDATA4<>+0x000(SB)/8, $0x0101010101010101
 DATA LCDATA4<>+0x008(SB)/8, $0x0101010101010101
 GLOBL LCDATA4<>(SB), 8, $16
 
-TEXT ·_SimdSse2BackgroundAdjustRangeMasked(SB), 7, $0
+TEXT ·_SimdSse2BackgroundAdjustRangeMasked(SB), 7, $0-104
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -932,7 +930,6 @@ TEXT ·_SimdSse2BackgroundAdjustRangeMasked(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
-
 	LEAQ LCDATA4<>(SB), BP
 
 	QUAD $0x7c8b4c6824548b4c; QUAD $0x4c5024648b4c6024
@@ -1189,7 +1186,7 @@ LBB4_31:
 LBB4_56:
 	RET
 
-TEXT ·_SimdSse2BackgroundShiftRange(SB), 7, $0
+TEXT ·_SimdSse2BackgroundShiftRange(SB), 7, $0-64
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -1197,6 +1194,7 @@ TEXT ·_SimdSse2BackgroundShiftRange(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
+
 	QUAD $0x6c8b4c4024548b4c; QUAD $0xe38348f389483824
 	LONG $0xf33948f0
 	JNE  LBB5_32
@@ -1450,7 +1448,7 @@ LBB5_22:
 LBB5_58:
 	RET
 
-TEXT ·_SimdSse2BackgroundShiftRangeMasked(SB), 7, $0
+TEXT ·_SimdSse2BackgroundShiftRangeMasked(SB), 7, $0-80
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -1458,6 +1456,7 @@ TEXT ·_SimdSse2BackgroundShiftRangeMasked(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
+
 	QUAD $0x7c8b4c5024548b4c; QUAD $0x4840245c8b4c4824
 	QUAD $0x48f0894838245c8b
 	LONG $0x48f0e083; WORD $0xf039
@@ -1658,7 +1657,7 @@ LBB6_21:
 LBB6_50:
 	RET
 
-TEXT ·_SimdSse2BackgroundInitMask(SB), 7, $0
+TEXT ·_SimdSse2BackgroundInitMask(SB), 7, $0-64
 
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
@@ -1666,6 +1665,7 @@ TEXT ·_SimdSse2BackgroundInitMask(SB), 7, $0
 	MOVQ arg4+24(FP), CX
 	MOVQ arg5+32(FP), R8
 	MOVQ arg6+40(FP), R9
+
 	QUAD $0x7c8b4c4024548b4c; QUAD $0xe38348f389483824
 	LONG $0xf33948f0
 	JNE  LBB7_25

@@ -26,7 +26,7 @@ func TestSse2AbsGradientSaturatedSum(t *testing.T) {
 	pixels := make([]byte, Resolution*Resolution)
 
 	for i := 0; i < Resolution*Resolution; i++ {
-		pixels[i] = 255*(byte(i)&1) - byte(i)*20
+		pixels[i] = byte(i)*byte(i)
 	}
 
 	src, dst := SimdSetup(GRAY8)
@@ -39,6 +39,6 @@ func TestSse2AbsGradientSaturatedSum(t *testing.T) {
 
 	copy(result[:], (*[Resolution * Resolution]byte)(dst.GetData())[:])
 
-	fmt.Println(result[:128])
+	fmt.Println(result[Resolution:Resolution*2])
 
 }

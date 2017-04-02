@@ -1,0 +1,33 @@
+/*
+ * Minio Cloud Storage, (C) 2017 Minio, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package gocvsimd
+
+import "testing"
+
+func TestSse2Fill(t *testing.T) {
+	dst1, dst2 := View{}, View{}
+	dst1.Recreate(Resolution, Resolution, BGR24)
+	dst2.Recreate(Resolution, Resolution, BGRA32)
+
+	red := 0x77
+	blue := 0x11
+	green := 0xAA
+	alpha := 0xFF
+
+	SimdSse2FillBgr(dst1, blue, green, red)
+	SimdSse2FillBgra(dst2, blue, green, red, alpha)
+}

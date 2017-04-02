@@ -32,16 +32,23 @@ func TestSse2BgraToYuv(t *testing.T) {
 		src[3+i*4] = byte(i)
 	}
 
-	bgra, y := SimdSetup(BGRA32)
-	u, v := SimdSetup(UV16)
+	bgra, _ := SimdSetup(BGRA32)
+	y, u := SimdSetup(GRAY8)
+	v, _ := SimdSetup(GRAY8)
 
 	copy((*[Resolution * Resolution * 4]byte)(bgra.GetData())[:], src[:])
 
 	SimdSse2BgraToYuv420p(bgra, y, u, v)
 
-	dst := make([]byte, Resolution*Resolution)
+	dsty := make([]byte, Resolution*Resolution)
+	dstu := make([]byte, Resolution*Resolution)
+	dstv := make([]byte, Resolution*Resolution)
 
-	copy(dst[:], (*[Resolution * Resolution]byte)(y.GetData())[:])
+	copy(dsty[:], (*[Resolution * Resolution]byte)(y.GetData())[:])
+	copy(dstu[:], (*[Resolution * Resolution]byte)(u.GetData())[:])
+	copy(dstv[:], (*[Resolution * Resolution]byte)(v.GetData())[:])
 
-	fmt.Println(dst[:64])
+	fmt.Println(dsty[:64])
+	fmt.Println(dstu[:64])
+	fmt.Println(dstv[:64])
 }

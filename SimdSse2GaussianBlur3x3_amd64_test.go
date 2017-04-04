@@ -1,7 +1,6 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -24,7 +23,6 @@ func TestSimdSse2GaussianBlur3x3(t *testing.T) {
 
 	copy(dst[:], (*[Resolution*Resolution]byte)(grayout.GetData())[:])
 
-	fmt.Println(dst[:64])
 	for r := 1; r < Resolution-1; r++ {
 		for c := 1; c < Resolution-1; c++ {
 			gaus := (int(src[Resolution*(r-1)+c-1]) + 2*int(src[Resolution*(r-1)+c]) + int(src[Resolution*(r-1)+c+1]) +

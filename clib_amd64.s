@@ -35,11 +35,43 @@ MEMCPY_WORD_DONE:
 	MOVB -1(SI)(CX*1), R8
 	MOVB R8, -1(DI)(CX*1)
 MEMCPY_BYTE_DONE:
+    MOVQ DI, AX   // set return value
 	POPQ CX
 	POPQ R8
 	RET
 
 // void *memset(void *str, int c, size_t n)
+// DI = str, SI = c, DX = size
 TEXT clib·_memset(SB), NOSPLIT|NOFRAME, $0
-    RET
-
+	PUSHQ R8
+	PUSHQ CX
+	XORQ R8, R8     // clear register
+	XORQ CX, CX     // clear register
+MEMSET_QUAD_LOOP:
+	ADDQ $8, CX
+	CMPQ CX, DX
+	JA MEMSET_QUAD_DONE
+	MOVQ R8, -8(DI)(CX*1)
+	JMP MEMSET_QUAD_LOOP
+MEMSET_QUAD_DONE:
+	SUBQ $4, CX
+	CMPQ CX, DX
+	JA MEMSET_LONG_DONE
+	MOVL R8, -4(DI)(CX*1)
+	ADDQ $4, CX
+MEMSET_LONG_DONE:
+	SUBQ $2, CX
+	CMPQ CX, DX
+	JA MEMSET_WORD_DONE
+	MOVW R8, -2(DI)(CX*1)
+	ADDQ $2, CX
+MEMSET_WORD_DONE:
+	SUBQ $1, CX
+	CMPQ CX, DX
+	JA MEMSET_BYTE_DONE
+	MOVB R8, -1(DI)(CX*1)
+MEMSET_BYTE_DONE:
+    MOVQ DI, AX   // set return value
+	POPQ CX
+	POPQ R8
+	RET

@@ -22,7 +22,7 @@ func TestSimdSse2ReduceGray4x4(t *testing.T) {
 
 	dst := make([]byte, grayout.GetDataLen())
 
-	copy(dst[:], (*[Resolution*Resolution]byte)(grayout.GetData())[:])
+	copy(dst[:], (*[Resolution/2*Resolution/2]byte)(grayout.GetData())[:])
 
 	fmt.Println(dst[:64])
 }

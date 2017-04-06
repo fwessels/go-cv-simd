@@ -45,7 +45,7 @@ MEMCPY_BYTE_DONE:
 	RET
 
 // func _ClibMemcpy(dst, src unsafe.Pointer, n uint) unsafe.Pointer
-TEXT ·_ClibMemcpy(SB), NOSPLIT|NOFRAME, $16-16
+TEXT ·_ClibMemcpy(SB), NOSPLIT|NOFRAME, $16-24
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
 	MOVQ arg3+16(FP), DX
@@ -106,7 +106,7 @@ TEXT ·_ClibMemset(SB), NOSPLIT|NOFRAME, $16-24
 
 // float floor (float x);
 // DI = x
-TEXT clib·_floor(SB), NOSPLIT|NOFRAME, $16-16
+TEXT clib·_floor(SB), NOSPLIT|NOFRAME, $16-0
 	MOVQ X0, -16(SP)               // save X0
 	MOVL DI, X0
 	LONG $0x0a3a0f66; WORD $0x01c0 // roundss xmm0, xmm0, 1
@@ -123,7 +123,7 @@ TEXT ·_ClibFloor32(SB), NOSPLIT|NOFRAME, $16-16
 
 // double floor (double x);
 // DI = x
-TEXT clib·_floor64(SB), NOSPLIT|NOFRAME, $16-16
+TEXT clib·_floor64(SB), NOSPLIT|NOFRAME, $16-0
 	MOVQ X0, -16(SP)               // save X0
 	MOVQ DI, X0
 	LONG $0x0b3a0f66; WORD $0x01c0 // roundsd xmm0, xmm0, 1

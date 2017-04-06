@@ -56,44 +56,52 @@ TEXT ·_ClibMemcpy(SB), NOSPLIT|NOFRAME, $16-16
 // void *memset(void *str, int c, size_t n)
 // DI = str, SI = c, DX = size
 TEXT clib·_memset(SB), NOSPLIT|NOFRAME, $16-0
-	PUSHQ R8
 	PUSHQ CX
-
-	// TODO OR R8 across the register
-	XORQ R8, R8 // clear register
+    LONG $0x0101f669; WORD $0x0101 // imul esi, 0x1010101
+    MOVQ SI, CX
+    ROLQ $32, CX
+    ORQ CX, SI
 	XORQ CX, CX // clear register
 
 MEMSET_QUAD_LOOP:
 	ADDQ $8, CX
 	CMPQ CX, DX
 	JA   MEMSET_QUAD_DONE
-	MOVQ R8, -8(DI)(CX*1)
+	MOVQ SI, -8(DI)(CX*1)
 	JMP  MEMSET_QUAD_LOOP
 
 MEMSET_QUAD_DONE:
 	SUBQ $4, CX
 	CMPQ CX, DX
 	JA   MEMSET_LONG_DONE
-	MOVL R8, -4(DI)(CX*1)
+	MOVL SI, -4(DI)(CX*1)
 	ADDQ $4, CX
 
 MEMSET_LONG_DONE:
 	SUBQ $2, CX
 	CMPQ CX, DX
 	JA   MEMSET_WORD_DONE
-	MOVW R8, -2(DI)(CX*1)
+	MOVW SI, -2(DI)(CX*1)
 	ADDQ $2, CX
 
 MEMSET_WORD_DONE:
 	SUBQ $1, CX
 	CMPQ CX, DX
 	JA   MEMSET_BYTE_DONE
-	MOVB R8, -1(DI)(CX*1)
+	MOVB SI, -1(DI)(CX*1)
 
 MEMSET_BYTE_DONE:
 	MOVQ DI, AX // set return value
 	POPQ CX
-	POPQ R8
+	RET
+
+// func _ClibMemset(dst unsafe.Pointer, c int, n uint) unsafe.Pointer
+TEXT ·_ClibMemset(SB), NOSPLIT|NOFRAME, $16-24
+	MOVQ arg1+0(FP), DI
+	MOVQ arg2+8(FP), SI
+	MOVQ arg3+16(FP), DX
+	CALL clib·_memset(SB)
+	MOVQ AX, ret+24(FP)
 	RET
 
 // float floor (float x);

@@ -89,3 +89,35 @@ func TestClibMemcpy(t *testing.T) {
 		}
 	}
 }
+
+func TestClibMemset(t *testing.T) {
+
+	init := make([]byte, 256)
+	dst := make([]byte, 256)
+
+	for i, _ := range init {
+		init[i] = byte(i)
+	}
+
+	for count := 0; count < 256; count++ {
+
+		copy(dst[:], init[:])
+
+		ptr := _ClibMemset(unsafe.Pointer(&dst[0]), count, uint(count))
+		if unsafe.Pointer(&dst[0]) != ptr {
+			t.Errorf("TestClibMemcpy(): \nexpected %v\ngot      %v", unsafe.Pointer(&dst[0]), ptr)
+		}
+
+		i := 0;
+		for ; i < count; i++ {
+			if dst[i] != byte(count) {
+				t.Errorf("1-TestClibMemcpy(%d): \nexpected %d\ngot      %d", i, count, dst[i])
+			}
+		}
+		for ; i < len(dst); i++ {
+			if dst[i] != init[i] {
+				t.Errorf("2-TestClibMemcpy(%d): \nexpected %d\ngot      %d", i, init[i], dst[i])
+			}
+		}
+	}
+}

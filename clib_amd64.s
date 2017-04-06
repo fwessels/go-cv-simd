@@ -86,3 +86,20 @@ MEMSET_BYTE_DONE:
 	POPQ CX
 	POPQ R8
 	RET
+
+// float floor (float x);
+// DI = x
+TEXT clib·_floor(SB), NOSPLIT|NOFRAME, $16-16
+	MOVQ X0, -16(SP)               // save X0
+	MOVL DI, X0
+	LONG $0x0a3a0f66; WORD $0x01c0 // roundss xmm0, xmm0, 1
+	MOVL X0, AX
+	MOVQ -16(SP), X0               // restore X0
+	RET
+
+// func _ClibFloor32(fl float32) float32
+TEXT ·_ClibFloor32(SB), NOSPLIT|NOFRAME, $16-16
+	MOVL arg1+0(FP), DI
+	CALL clib·_floor(SB)
+	MOVL AX, ret+8(FP)
+	RET

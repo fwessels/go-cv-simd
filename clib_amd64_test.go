@@ -17,6 +17,7 @@
 package gocvsimd
 
 import (
+	"unsafe"
 	"testing"
 )
 
@@ -54,4 +55,37 @@ func TestClibFloor(t *testing.T) {
 	testClibFloor64(t, 1.0-1e-6, 0.0)
 	testClibFloor64(t, 0.0-1e-6, -1.0)
 
+}
+
+func TestClibMemcpy(t *testing.T) {
+
+	src := make([]byte, 256)
+	zero := make([]byte, 256)
+	dst := make([]byte, 256)
+
+	for i, _ := range src {
+		src[i] = byte(i)
+	}
+
+	for count := 0; count < 256; count++ {
+
+		copy(dst[:], zero[:])
+
+		ptr := _ClibMemcpy(unsafe.Pointer(&dst[0]), unsafe.Pointer(&src[0]), uint(count))
+		if unsafe.Pointer(&dst[0]) != ptr {
+			t.Errorf("TestClibMemcpy(): \nexpected %v\ngot      %v", unsafe.Pointer(&dst[0]), ptr)
+		}
+
+		i := 0;
+		for ; i < count; i++ {
+			if dst[i] != src[i] {
+				t.Errorf("TestClibMemcpy(): \nexpected %d\ngot      %d", src[i], dst[i])
+			}
+		}
+		for ; i < len(dst); i++ {
+			if dst[i] != 0 {
+				t.Errorf("TestClibMemcpy(): \nexpected %d\ngot      %d", 0, dst[i])
+			}
+		}
+	}
 }

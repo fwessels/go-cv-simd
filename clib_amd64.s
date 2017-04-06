@@ -103,3 +103,20 @@ TEXT ·_ClibFloor32(SB), NOSPLIT|NOFRAME, $16-16
 	CALL clib·_floor(SB)
 	MOVL AX, ret+8(FP)
 	RET
+
+// double floor (double x);
+// DI = x
+TEXT clib·_floor64(SB), NOSPLIT|NOFRAME, $16-16
+	MOVQ X0, -16(SP)               // save X0
+	MOVQ DI, X0
+	LONG $0x0b3a0f66; WORD $0x01c0 // roundsd xmm0, xmm0, 1
+	MOVQ X0, AX
+	MOVQ -16(SP), X0               // restore X0
+	RET
+
+// func _ClibFloor64(fl float64) float64
+TEXT ·_ClibFloor64(SB), NOSPLIT|NOFRAME, $16-16
+	MOVQ arg1+0(FP), DI
+	CALL clib·_floor64(SB)
+	MOVQ AX, ret+8(FP)
+	RET

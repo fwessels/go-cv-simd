@@ -28,6 +28,14 @@ func testClibFloor32(t *testing.T, fl, expected float32) {
 	}
 }
 
+func testClibFloor64(t *testing.T, fl, expected float64) {
+
+	got := _ClibFloor64(fl)
+	if expected != got {
+		t.Errorf("testClibFloor64(): \nexpected %v\ngot      %v", expected, got)
+	}
+}
+
 func TestClibFloor(t *testing.T) {
 
 	testClibFloor32(t, 2.1, 2.0)
@@ -37,4 +45,13 @@ func TestClibFloor(t *testing.T) {
 	testClibFloor32(t, 1.0, 1.0)
 	testClibFloor32(t, 1.0-1e-6, 0.0)
 	testClibFloor32(t, 0.0-1e-6, -1.0)
+
+	testClibFloor64(t, 2.1, 2.0)
+	testClibFloor64(t, 1.9, 1.0)
+	testClibFloor64(t, 1.5, 1.0)
+	testClibFloor64(t, 1.1, 1.0)
+	testClibFloor64(t, 1.0, 1.0)
+	testClibFloor64(t, 1.0-1e-6, 0.0)
+	testClibFloor64(t, 0.0-1e-6, -1.0)
+
 }

@@ -6,6 +6,7 @@ TEXT ·_SimdSse2Reorder16bit(SB), 7, $0-24
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
 	MOVQ arg3+16(FP), DX
+
 	QUAD $0x48f0e08348f88948
 	WORD $0xf839
 	JNE  LBB0_9
@@ -93,6 +94,7 @@ TEXT ·_SimdSse2Reorder32bit(SB), 7, $0-24
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
 	MOVQ arg3+16(FP), DX
+
 	QUAD $0x48f0e08348f88948
 	WORD $0xf839
 	JNE  LBB1_8
@@ -178,6 +180,7 @@ TEXT ·_SimdSse2Reorder64bit(SB), 7, $0-24
 	MOVQ arg1+0(FP), DI
 	MOVQ arg2+8(FP), SI
 	MOVQ arg3+16(FP), DX
+
 	QUAD $0x48f0e08348f88948
 	WORD $0xf839
 	JNE  LBB2_8

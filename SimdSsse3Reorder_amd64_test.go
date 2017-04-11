@@ -24,7 +24,7 @@ import (
 	"testing"
 )
 
-func TestReorder(t *testing.T) {
+func TestSsse3Reorder(t *testing.T) {
 
 	src := make([]byte, 256)
 
@@ -53,7 +53,7 @@ func TestReorder(t *testing.T) {
 		fmt.Println(i, src[i], dst[i])
 	}
 
-	Reorder32bit(&src, 16, &dst)
+	SimdSsse3Reorder32bit(&src, 16, &dst)
 
 	fmt.Println()
 	fmt.Println("after")

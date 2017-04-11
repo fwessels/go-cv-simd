@@ -28,7 +28,7 @@ import (
 //go:noescape
 func _SimdSsse3Reorder32bit(src unsafe.Pointer, size uint64, dst unsafe.Pointer)
 
-func Reorder32bit(src *[]byte, size uint64, dst *[]byte) {
+func SimdSsse3Reorder32bit(src *[]byte, size uint64, dst *[]byte) {
 
 	fmt.Println("src:", unsafe.Pointer(&(*src)[0]))
 	fmt.Println("dst:", unsafe.Pointer(&(*dst)[0]))

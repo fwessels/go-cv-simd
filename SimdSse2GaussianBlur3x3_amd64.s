@@ -9,7 +9,7 @@ DATA LCDATA1<>+0x020(SB)/8, $0x0000000000000000
 DATA LCDATA1<>+0x028(SB)/8, $0xffff000000000000
 GLOBL LCDATA1<>(SB), 8, $48
 
-TEXT ·_SimdSse2GaussianBlur3x3(SB), $232-64
+TEXT ·_SimdSse2GaussianBlur3x3(SB), $168-64
 
 	MOVQ src+0(FP), DI
 	MOVQ srcStride+8(FP), SI
@@ -20,7 +20,7 @@ TEXT ·_SimdSse2GaussianBlur3x3(SB), $232-64
 	MOVQ dstStride+48(FP), R10
 	MOVQ buffer+56(FP), R11
 	MOVQ SP, BP
-	ADDQ $144, SP
+	ADDQ $80, SP
 	ANDQ $-16, SP
 	MOVQ BP, 80(SP)
 	MOVQ R11, 72(SP)
@@ -925,14 +925,12 @@ LBB0_61:
 	JNE  LBB0_54
 	JMP  LBB0_119
 
-TEXT ·_SimdSse2GaussianBlur3x3BufAllocSize(SB), $136-24
+TEXT ·_SimdSse2GaussianBlur3x3BufAllocSize(SB), $0-24
 
 	MOVQ width+0(FP), DI
 	MOVQ channelCount+8(FP), SI
-	ADDQ $136, SP
 
 	QUAD $0x0fc78348feaf0f48; QUAD $0x48ff0148f0e78348
 	WORD $0x048d; BYTE $0x7f
-	SUBQ $136, SP
 	MOVQ AX, alloc+16(FP)
 	RET

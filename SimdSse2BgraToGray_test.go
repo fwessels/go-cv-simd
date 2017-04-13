@@ -17,8 +17,8 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
+	"math"
 )
 
 func TestSse2BgraToGray(t *testing.T) {
@@ -43,5 +43,20 @@ func TestSse2BgraToGray(t *testing.T) {
 
 	copy(dst[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
-	fmt.Println(dst[:64])
+	const BGR_TO_GRAY_AVERAGING_SHIFT uint = 14
+	const BGR_TO_GRAY_ROUND_TERM int = (1 << (BGR_TO_GRAY_AVERAGING_SHIFT - 1))
+	BLUE_TO_GRAY_WEIGHT := int(math.Floor(0.114*float64(1 << BGR_TO_GRAY_AVERAGING_SHIFT) + 0.5))
+	GREEN_TO_GRAY_WEIGHT := int(math.Floor(0.587*float64(1 << BGR_TO_GRAY_AVERAGING_SHIFT) + 0.5))
+	RED_TO_GRAY_WEIGHT := int(math.Floor(0.299*float64(1 << BGR_TO_GRAY_AVERAGING_SHIFT) + 0.5))
+
+	for index, got := range dst {
+		blue, green, red := int(src[0+index*4]), int(src[1+index*4]), int(src[2+index*4])
+
+		gray := (BLUE_TO_GRAY_WEIGHT*blue + GREEN_TO_GRAY_WEIGHT*green +
+			RED_TO_GRAY_WEIGHT*red + BGR_TO_GRAY_ROUND_TERM) >> BGR_TO_GRAY_AVERAGING_SHIFT
+
+		if byte(gray) != got {
+			t.Errorf("For [%d]: Expected %d, got %d", index, gray, got)
+		}
+	}
 }

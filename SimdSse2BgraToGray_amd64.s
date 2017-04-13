@@ -11,15 +11,14 @@ DATA LCDATA1<>+0x030(SB)/8, $0x0000200000002000
 DATA LCDATA1<>+0x038(SB)/8, $0x0000200000002000
 GLOBL LCDATA1<>(SB), 8, $64
 
-TEXT ·_SimdSse2BgraToGray(SB), 7, $0-48
+TEXT ·_SimdSse2BgraToGray(SB), $0-48
 
-	MOVQ arg1+0(FP), DI
-	MOVQ arg2+8(FP), SI
-	MOVQ arg3+16(FP), DX
-	MOVQ arg4+24(FP), CX
-	MOVQ arg5+32(FP), R8
-	MOVQ arg6+40(FP), R9
-
+	MOVQ bgra+0(FP), DI
+	MOVQ width+8(FP), SI
+	MOVQ height+16(FP), DX
+	MOVQ bgraStride+24(FP), CX
+	MOVQ gray+32(FP), R8
+	MOVQ grayStride+40(FP), R9
 	LEAQ LCDATA1<>(SB), BP
 
 	QUAD $0x48f0e08348f88948

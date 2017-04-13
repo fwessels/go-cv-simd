@@ -61,9 +61,9 @@ func TestSse2FillBgra(t *testing.T) {
 
 	for r := 0; r < Resolution; r++ {
 		for c := 0; c < Resolution; c++ {
-			b, g, r := dst[out.GetStride()*r+c*4], dst[out.GetStride()*r+c*4+1], dst[out.GetStride()*r+c*4+2]
-			if b != blue || g != green || r != red {
-				t.Errorf("For [%d, %d]: Expected %x%x%x, got %x%x%x", r, c, blue, green, red, b, g, r)
+			b, g, r, a := dst[out.GetStride()*r+c*4], dst[out.GetStride()*r+c*4+1], dst[out.GetStride()*r+c*4+2], dst[out.GetStride()*r+c*4+3]
+			if b != blue || g != green || r != red || a != alpha {
+				t.Errorf("For [%d, %d]: Expected %x%x%x%x, got %x%x%x%x", r, c, blue, green, red, alpha, b, g, r, a)
 			}
 		}
 	}

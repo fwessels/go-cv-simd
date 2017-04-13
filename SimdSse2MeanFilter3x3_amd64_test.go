@@ -7,7 +7,7 @@ import (
 func TestSimdSse2MeanFilter3x3(t *testing.T) {
 	grayin, grayout := View{}, View{}
 	grayin.Recreate(Resolution, Resolution, GRAY8)
-	grayout.Recreate(Resolution, dstStride, GRAY8)
+	grayout.RecreateWithStride(Resolution, Resolution, dstStride, GRAY8)
 
 	src := make([]byte, grayin.GetDataLen())
 

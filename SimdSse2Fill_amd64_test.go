@@ -17,42 +17,54 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
-//func TestSse2FillBgr(t *testing.T) {
-//	dst1 := View{}
-//	dst1.Recreate(Resolution, Resolution, BGR24)
-//
-//	red := 0x22
-//	blue := 0x44
-//	green := 0x66
-//
-//	SimdSse2FillBgr(dst1, blue, green, red)
-//
-//	dst := make([]byte, Resolution*Resolution*4)
-//
-//	copy(dst[:], (*[Resolution * Resolution * 4]byte)(dst1.GetData())[:])
-//
-//	fmt.Println(dst[:128])
-//}
+func TestSse2FillBgr(t *testing.T) {
+	out := View{}
+	out.RecreateWithStride(Resolution, Resolution, dstStride*3, BGR24)
 
+	const blue = 0x22
+	const green = 0x44
+	const red = 0x66
+
+	SimdSse2FillBgr(out, blue, green, red)
+
+	dst := make([]byte, Resolution*dstStride*3)
+
+	copy(dst[:], (*[Resolution * dstStride * 3]byte)(out.GetData())[:])
+
+	for r := 0; r < Resolution; r++ {
+		for c := 0; c < Resolution; c++ {
+			b, g, r := dst[out.GetStride()*r+c*3], dst[out.GetStride()*r+c*3+1], dst[out.GetStride()*r+c*3+2]
+			if b != blue || g != green || r != red {
+				t.Errorf("For [%d, %d]: Expected %x%x%x, got %x%x%x", r, c, blue, green, red, b, g, r)
+			}
+		}
+	}
+}
 
 func TestSse2FillBgra(t *testing.T) {
-	dst2 := View{}
-	dst2.Recreate(Resolution, Resolution, BGRA32)
+	out := View{}
+	out.RecreateWithStride(Resolution, Resolution, dstStride*4, BGRA32)
 
-	red := 0x77
-	blue := 0x11
-	green := 0xAA
-	alpha := 0xFF
+	const blue = 0x11
+	const green = 0xAA
+	const red = 0x77
+	const alpha = 0xFF
 
-	SimdSse2FillBgra(dst2, blue, green, red, alpha)
+	SimdSse2FillBgra(out, blue, green, red, alpha)
 
-	dst := make([]byte, Resolution*Resolution*4)
+	dst := make([]byte, Resolution*dstStride*4)
 
-	copy(dst[:], (*[Resolution * Resolution * 4]byte)(dst2.GetData())[:])
+	copy(dst[:], (*[Resolution*dstStride*4]byte)(out.GetData())[:])
 
-	fmt.Println(dst[:128])
+	for r := 0; r < Resolution; r++ {
+		for c := 0; c < Resolution; c++ {
+			b, g, r := dst[out.GetStride()*r+c*4], dst[out.GetStride()*r+c*4+1], dst[out.GetStride()*r+c*4+2]
+			if b != blue || g != green || r != red {
+				t.Errorf("For [%d, %d]: Expected %x%x%x, got %x%x%x", r, c, blue, green, red, b, g, r)
+			}
+		}
+	}
 }

@@ -8,7 +8,7 @@ import (
 )
 
 //go:noescape
-func _SimdSse2GaussianBlur3x3BufAllocSize(width, channelCount int) int
+func _SimdSse2GaussianBlur3x3BufAllocSize(width, channelCount int) (alloc int)
 
 //go:noescape
 func _SimdSse2GaussianBlur3x3(src unsafe.Pointer, srcStride, width, height, channelCount uint64, dst unsafe.Pointer, dstStride uint64, buffer unsafe.Pointer)

@@ -1,7 +1,6 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -18,16 +17,29 @@ func TestSimdSse2Binarization(t *testing.T) {
 
 	copy((*[Resolution*Resolution]byte)(grayin.GetData())[:], src[:])
 
-	SimdSse2Binarization(grayin, 64, 111, 0, grayout, 3)
+	const v = 64
+	const pos = 111
+	const neg = 0
+
+	SimdSse2Binarization(grayin, v, pos, neg, grayout, 3)
 
 	dst := make([]byte, grayout.GetDataLen())
 
 	copy(dst[:], (*[Resolution*Resolution]byte)(grayout.GetData())[:])
 
-	fmt.Println(dst[:Resolution])
-	fmt.Println(dst[Resolution:Resolution*2])
-	fmt.Println(dst[Resolution*2:Resolution*3])
-	fmt.Println(dst[Resolution*3:Resolution*4])
+	for r := 0; r < Resolution; r++ {
+		for c := 0; c < Resolution; c++ {
+			val := int(src[Resolution*r+c])
+			b := neg
+			if val >= v {
+				b = pos
+			}
+			got := dst[grayout.GetStride()*r+c]
+			if byte(b) != got {
+				t.Errorf("Expected %d, got %d", b, got)
+			}
+		}
+	}
 }
 
 func TestSimdSse2AveragingBinarization(t *testing.T) {
@@ -43,14 +55,30 @@ func TestSimdSse2AveragingBinarization(t *testing.T) {
 
 	copy((*[Resolution*Resolution]byte)(grayin.GetData())[:], src[:])
 
-	SimdSse2AveragingBinarization(grayin, 64, 3, 128, 194, 64, grayout, 3)
+	const v = 64
+	const neighbor = 1
+	const th = 128
+	const pos = 222
+	const neg = 64
+
+	SimdSse2AveragingBinarization(grayin, v, neighbor, th, pos, neg, grayout, 3)
 
 	dst := make([]byte, grayout.GetDataLen())
 
 	copy(dst[:], (*[Resolution*Resolution]byte)(grayout.GetData())[:])
 
-	fmt.Println(dst[:Resolution])
-	fmt.Println(dst[Resolution:Resolution*2])
-	fmt.Println(dst[Resolution*2:Resolution*3])
-	fmt.Println(dst[Resolution*3:Resolution*4])
+	for r := 0; r < Resolution; r++ {
+		for c := 0; c < Resolution; c++ {
+			val := int(src[Resolution*r+c])
+			b := neg
+			if val >= v {
+				b = pos
+			}
+			got := dst[grayout.GetStride()*r+c]
+			if byte(b) != got {
+				t.Errorf("Expected %d, got %d", b, got)
+			}
+		}
+	}
+
 }

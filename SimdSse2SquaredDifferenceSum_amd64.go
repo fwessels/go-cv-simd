@@ -9,7 +9,7 @@ import "unsafe"
 func _SimdSse2SquaredDifferenceSum(a unsafe.Pointer, aStride uint64, b unsafe.Pointer, bStride uint64, width, height uint64, sum unsafe.Pointer)
 
 //go:noescape
-func _SimdSse2SquaredDifferenceSumMasked(a unsafe.Pointer, aStride uint64, b unsafe.Pointer, bStride uint64, mask unsafe.Pointer, maskStride uint64, index uint8, width, height uint64, sum unsafe.Pointer)
+func _SimdSse2SquaredDifferenceSumMasked(a unsafe.Pointer, aStride uint64, b unsafe.Pointer, bStride uint64, mask unsafe.Pointer, maskStride uint64, index uint64/*uint8*/, width, height uint64, sum unsafe.Pointer)
 
 //
 func SimdSse2SquaredDifferenceSum(a, b View) uint64 {
@@ -22,7 +22,7 @@ func SimdSse2SquaredDifferenceSum(a, b View) uint64 {
 }
 
 //
-func SimdSse2SquaredDifferenceSumMasked(a, b, mask View, index uint8) uint64 {
+func SimdSse2SquaredDifferenceSumMasked(a, b, mask View, index uint64/*uint8*/) uint64 {
 
 	sum := uint64(0)
 

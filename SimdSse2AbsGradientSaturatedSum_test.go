@@ -17,7 +17,6 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -38,7 +37,4 @@ func TestSse2AbsGradientSaturatedSum(t *testing.T) {
 	result := make([]byte, Resolution*Resolution)
 
 	copy(result[:], (*[Resolution * Resolution]byte)(dst.GetData())[:])
-
-	fmt.Println(result[Resolution:Resolution*2])
-
 }

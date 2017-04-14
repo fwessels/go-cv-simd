@@ -17,7 +17,6 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -40,7 +39,4 @@ func TestSse2AlphaBlending(t *testing.T) {
 	result := make([]byte, Resolution*Resolution*4)
 
 	copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
-
-	fmt.Println(result[:128])
-
 }

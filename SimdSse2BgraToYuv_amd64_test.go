@@ -47,8 +47,4 @@ func TestSse2BgraToYuv(t *testing.T) {
 	copy(dsty[:], (*[Resolution * Resolution]byte)(y.GetData())[:])
 	copy(dstu[:], (*[Resolution * Resolution]byte)(u.GetData())[:])
 	copy(dstv[:], (*[Resolution * Resolution]byte)(v.GetData())[:])
-
-	fmt.Println(dsty[:64])
-	fmt.Println(dstu[:64])
-	fmt.Println(dstv[:64])
 }

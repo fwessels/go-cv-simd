@@ -42,33 +42,33 @@ func TestSimdSse2ConditionalCount8u(t *testing.T) {
 
 	copy((*[Resolution * Resolution]byte)(src.GetData())[:], pixels[:])
 
-	count := SimdSse2ConditionalCount8u(src, check,  0)
+	count := SimdSse2ConditionalCount8u(src, check, 0)
 
 	if count != equals {
 		t.Errorf("Expected %d, got %d", equals, count)
 	}
 
-	count = SimdSse2ConditionalCount8u(src, check,  1)
+	count = SimdSse2ConditionalCount8u(src, check, 1)
 	if count != Resolution*Resolution-equals {
 		t.Errorf("Expected %d, got %d", Resolution*Resolution-equals, count)
 	}
 
-	count = SimdSse2ConditionalCount8u(src, check,  2)
+	count = SimdSse2ConditionalCount8u(src, check, 2)
 	if count != higher {
 		t.Errorf("Expected %d, got %d", higher, count)
 	}
 
-	count = SimdSse2ConditionalCount8u(src, check,  3)
-	if count != higher + equals {
-		t.Errorf("Expected %d, got %d", higher + equals, count)
+	count = SimdSse2ConditionalCount8u(src, check, 3)
+	if count != higher+equals {
+		t.Errorf("Expected %d, got %d", higher+equals, count)
 	}
 
-	count = SimdSse2ConditionalCount8u(src, check,  4)
+	count = SimdSse2ConditionalCount8u(src, check, 4)
 	if count != lower {
 		t.Errorf("Expected %d, got %d", lower, count)
 	}
 
-	count = SimdSse2ConditionalCount8u(src, check,  5)
+	count = SimdSse2ConditionalCount8u(src, check, 5)
 	if count != lower+equals {
 		t.Errorf("Expected %d, got %d", lower+equals, count)
 	}
@@ -96,7 +96,7 @@ func TestSimdSse2ConditionalCount16i(t *testing.T) {
 
 	copy((*[Resolution * Resolution]uint16)(src.GetData())[:], pixels[:])
 
-	SimdSse2ConditionalCount16i(src, check,  0)
+	SimdSse2ConditionalCount16i(src, check, 0)
 }
 
 func testSimdSse2ConditionalSum(t *testing.T, f func(src, mask View, value, compareType uint64) uint64) {
@@ -121,7 +121,7 @@ func testSimdSse2ConditionalSum(t *testing.T, f func(src, mask View, value, comp
 
 	copy((*[Resolution * Resolution]byte)(src.GetData())[:], pixels[:])
 
-	f(src, mask, 0,  0)
+	f(src, mask, 0, 0)
 }
 
 func TestSimdSse2ConditionalSum(t *testing.T) {
@@ -163,4 +163,3 @@ func TestSimdSse2ConditionalFill(t *testing.T) {
 
 	SimdSse2ConditionalFill(src, 123, 0, 234, dst)
 }
-

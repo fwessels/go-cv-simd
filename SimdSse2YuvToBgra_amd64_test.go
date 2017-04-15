@@ -17,11 +17,10 @@
 package gocvsimd
 
 import (
-	"fmt"
 	"testing"
 )
 
-func testYuvToBgra(f func(y, u, v, bgra View, alpha uint8)) {
+func testYuvToBgra(f func(y, u, v, bgra View, alpha uint64/*uint8*/)) {
 
 	src := make([]byte, Resolution*Resolution)
 
@@ -43,20 +42,20 @@ func testYuvToBgra(f func(y, u, v, bgra View, alpha uint8)) {
 
 	copy(dst[:], (*[Resolution * Resolution * 4]byte)(bgra.GetData())[:])
 
-	fmt.Println(dst[:128])
+	// TODO: Verify outcome
 }
 
-func TestSse2Yuv420pToBgra(t *testing.T) {
+func TestSimdSse2Yuv420pToBgra(t *testing.T) {
 
 	testYuvToBgra(SimdSse2Yuv420pToBgra)
 }
 
-func TestSse2Yuv422pToBgra(t *testing.T) {
+func TestSimdSse2Yuv422pToBgra(t *testing.T) {
 
 	testYuvToBgra(SimdSse2Yuv422pToBgra)
 }
 
-func TestSse2Yuv444pToBgra(t *testing.T) {
+func TestSimdSse2Yuv444pToBgra(t *testing.T) {
 
 	testYuvToBgra(SimdSse2Yuv444pToBgra)
 }

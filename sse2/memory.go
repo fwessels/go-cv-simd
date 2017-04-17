@@ -1,6 +1,9 @@
 package gocvsimd
 
-import "unsafe"
+import (
+	_ "fmt"
+	"unsafe"
+)
 
 // Allocate allocates an aligned memory block.
 // The memory allocated by this function is must be deleted by function Free
@@ -8,8 +11,17 @@ import "unsafe"
 // [in] align - a required alignment of memory block.
 // return a pointer to allocated memory.
 func Allocate(size, align int) unsafe.Pointer {
-	buf := make([]byte, size)
-	return unsafe.Pointer(&buf[0])
+	buf := make([]byte, size + align)
+
+	for index := 0; index < len(buf); index += 8 {
+		p := unsafe.Pointer(&buf[index])
+		if uint(uintptr(p)) & uint(align-1) == 0 {
+			//fmt.Printf("%v\n", p)
+			return p
+		}
+	}
+
+	panic("Failed to allocate at aligned address")
 }
 
 // Free frees aligned memory block.
@@ -34,4 +46,4 @@ func Alignment() int {
 	return 32
 }
 
-const Resolution = 2048
+const Resolution = 256

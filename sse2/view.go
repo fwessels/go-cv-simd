@@ -117,6 +117,10 @@ func (v *View) GetData() unsafe.Pointer {
 	return v.data
 }
 
+func (v *View) GetDataLen() int {
+	return v.stride*v.height
+}
+
 func (v *View) GetWidth() int {
 	return v.width
 }
@@ -144,6 +148,20 @@ func (v *View) Recreate(w, h int, f Format) {
 	v.height = h
 	v.format = f
 	v.stride = Align(v.width*PixelSize(v.format), Alignment())
+	v.data = Allocate(v.height*v.stride, Alignment())
+}
+
+// Recreate --
+func (v *View) RecreateWithStride(w, h, s int, f Format) {
+	if v.owner && v.data != nil {
+		Free(v.data)
+		v.data = nil
+		v.owner = false
+	}
+	v.width = w
+	v.height = h
+	v.format = f
+	v.stride = Align(s, Alignment())
 	v.data = Allocate(v.height*v.stride, Alignment())
 }
 

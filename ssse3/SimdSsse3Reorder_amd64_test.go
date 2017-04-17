@@ -20,7 +20,7 @@
 package gocvsimd
 
 import (
-	"fmt"
+	_ "fmt"
 	"testing"
 )
 
@@ -47,17 +47,17 @@ func TestSsse3Reorder(t *testing.T) {
 
 	dst := make([]byte, 256)
 
-	fmt.Println()
-	fmt.Println("before")
-	for i := 0; i < 16; i++ {
-		fmt.Println(i, src[i], dst[i])
-	}
+	//fmt.Println()
+	//fmt.Println("before")
+	//for i := 0; i < 16; i++ {
+	//	fmt.Println(i, src[i], dst[i])
+	//}
 
 	SimdSsse3Reorder32bit(&src, 16, &dst)
 
-	fmt.Println()
-	fmt.Println("after")
-	for i := 0; i < 16; i++ {
-		fmt.Println(i, src[i], dst[i])
-	}
+	//fmt.Println()
+	//fmt.Println("after")
+	//for i := 0; i < 16; i++ {
+	//	fmt.Println(i, src[i], dst[i])
+	//}
 }

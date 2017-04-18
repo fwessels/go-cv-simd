@@ -20,6 +20,23 @@ The algorithms are optimized using different SIMD CPU extensions. In particular 
 
 This wrapper depends on [c2goasm](https://github.com/minio/c2goasm) for embedding the assembly from the individual functions into Go. 
 
+## Performance compared to OpenCV 2.x
+
+A comparison against [go-opencv](https://github.com/lazywei/go-opencv) shows the following results:
+
+```
+                               OpenCV          SSE2
+benchmark                   old ns/op     new ns/op      delta
+BenchmarkGaussian-8             74338         18481    -75.14%
+BenchmarkGaussianRGB-8         186024         57169    -69.27%
+BenchmarkBlur-8                110155         16623    -84.91%
+BenchmarkBlurRGB-8             293017         53716    -81.67%
+BenchmarkMedian3x3-8           129268         23270    -82.00%
+BenchmarkMedian3x3RGB-8        169857         65896    -61.21%
+BenchmarkMedian5x5-8           883311        131812    -85.08%
+BenchmarkMedian5x5RGB-8       1246845        388415    -68.85%
+```
+
 ## Performance
 
 Below are the performance figures for SSE2

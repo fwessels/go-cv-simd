@@ -36,7 +36,7 @@ func SimdSse2Binarization(src View, value, positive, negative uint64/*uint8*/, d
 //				{
 //					area++;
 //					if(compare(src[x + dx, x + dy], value))
-//					sum++;
+//						sum++;
 //				}
 //			}
 //		}

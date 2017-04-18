@@ -13,7 +13,12 @@ func _SimdSse2MeanFilter3x3BufAllocSize(width, channelCount int) (alloc int)
 //go:noescape
 func _SimdSse2MeanFilter3x3(src unsafe.Pointer, srcStride, width, height, channelCount uint64, dst unsafe.Pointer, dstStride uint64, buffer unsafe.Pointer)
 
-//
+// SimdSse2MeanFilter3x3 performs an averaging with window 3x3.
+//	For every point:
+//		dst[x, y] = (src[x-1, y-1] + src[x, y-1] + src[x+1, y-1] +
+//			src[x-1, y] + src[x, y] + src[x+1, y] +
+//			src[x-1, y+1] + src[x, y+1] + src[x+1, y+1] + 4) / 9;
+// All images must have the same width, height and format (8-bit gray, 16-bit UV, 24-bit BGR or 32-bit BGRA).
 func SimdSse2MeanFilter3x3(src, dst View) {
 
 	size := _SimdSse2MeanFilter3x3BufAllocSize(src.GetWidth(), ChannelCount(src.GetFormat()))

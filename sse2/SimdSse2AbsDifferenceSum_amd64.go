@@ -19,7 +19,8 @@ func _SimdSse2AbsDifferenceSums3x3(current unsafe.Pointer, currentStride uint64,
 //go:noescape
 func _SimdSse2AbsDifferenceSums3x3Masked(current unsafe.Pointer, currentStride uint64, background unsafe.Pointer, backgroundStride uint64, mask unsafe.Pointer, maskStride uint64, index uint64/*uint8*/, width, height uint64, sums unsafe.Pointer)
 
-//
+// SimdSse2AbsDifferenceSum gets sum of absolute difference of two gray 8-bit images.
+// Both images must have the same width and height.
 func SimdSse2AbsDifferenceSum(a, b View) uint64 {
 
 	sum := uint64(0)
@@ -28,8 +29,9 @@ func SimdSse2AbsDifferenceSum(a, b View) uint64 {
 
 	return sum
 }
-
-//
+// SimdSse2AbsDifferenceSumMasked gets sum of absolute difference of two gray 8-bit images based on gray 8-bit mask.
+// Gets the absolute difference sum for all points when mask[i] == index.
+// Both images and mask must have the same width and height.
 func SimdSse2AbsDifferenceSumMasked(a, b, mask View, index uint64/*uint8*/) uint64 {
 
 	sum := uint64(0)

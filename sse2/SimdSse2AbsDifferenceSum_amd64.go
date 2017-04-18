@@ -39,7 +39,10 @@ func SimdSse2AbsDifferenceSumMasked(a, b, mask View, index uint64/*uint8*/) uint
 	return sum
 }
 
-//
+// SimdSse2AbsDifferenceSums3x3 gets 9 sums of absolute difference of two gray 8-bit images with various relative shifts in neighborhood 3x3.
+// Both images must have the same width and height. The image height and width must be equal or greater 3.
+// The sums are calculated with central part (indent width = 1) of the current image and with part of the background image with corresponding shift.
+// The shifts are lain in the range [-1, 1] for axis x and y.
 func SimdSse2AbsDifferenceSums3x3(current, background View) [9]uint64 {
 
 	sums := [9]uint64{}
@@ -48,7 +51,11 @@ func SimdSse2AbsDifferenceSums3x3(current, background View) [9]uint64 {
 
 	return sums
 }
-
+// SimdSse2AbsDifferenceSums3x3Masked gets 9 sums of absolute difference of two gray 8-bit images with various relative shifts in neighborhood 3x3 based on gray 8-bit mask.
+// Gets the absolute difference sums for all points when mask[i] == index.
+// Both images and mask must have the same width and height. The image height and width must be equal or greater 3.
+// The sums are calculated with central part (indent width = 1) of the current image and with part of the background image with the corresponding shift.
+// The shifts are lain in the range [-1, 1] for axis x and y.
 func SimdSse2AbsDifferenceSums3x3Masked(current, background, mask View, index uint64/*uint8*/) [9]uint64 {
 
 	sums := [9]uint64{}

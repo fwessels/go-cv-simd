@@ -20,6 +20,8 @@ The algorithms are optimized using different SIMD CPU extensions. In particular 
 
 This wrapper depends on [c2goasm](https://github.com/minio/c2goasm) for embedding the assembly from the individual functions into Go. 
 
+See the [sse2.sh](https://github.com/fwessels/go-cv-simd/blob/master/sse2/sse2.sh) script for more information about how to invoke.
+
 ## Performance compared to OpenCV 2.x
 
 A comparison against [go-opencv](https://github.com/lazywei/go-opencv) shows the following results:

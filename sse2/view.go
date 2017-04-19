@@ -4,6 +4,8 @@ import (
 	"image"
 	"image/draw"
 	"unsafe"
+	"image/color"
+	"os"
 )
 
 type Format uint8
@@ -177,4 +179,53 @@ func AsRGBA(src image.Image) *image.RGBA {
 	img := image.NewRGBA(bounds)
 	draw.Draw(img, bounds, src, bounds.Min, draw.Src)
 	return img
+}
+
+func LoadImage(name string) (View, error) {
+
+	// Load jpeg image
+	file, err := os.Open(name)
+	if err != nil {
+		return View{}, err
+	}
+	defer file.Close()
+
+	// Decode file using go's image API
+	img, _, err := image.Decode(file)
+	if err != nil {
+		return View{}, err
+	}
+
+	// go-cv loads image
+	view := View{}
+	view.LoadPixels(img)
+
+	return view, nil
+}
+
+// LoadImage loads a go Image object into the view
+func (v *View) LoadPixels(img image.Image) {
+
+	// TODO: Optimize this function
+
+	w := img.Bounds().Dx()
+	h := img.Bounds().Dy()
+
+	v.Recreate(w, h, BGRA32)
+
+	data := make([]byte, w*v.GetStride())
+
+	for y := 0; y < h; y++ {
+		index := y*v.GetStride()
+		for x := 0; x < w; x++ {
+			r, g, b, a := color.GrayModel.Convert(img.At(x, y)).RGBA()
+			data[index+0] = byte(b)
+			data[index+1] = byte(g)
+			data[index+2] = byte(r)
+			data[index+3] = byte(a)
+			index += 4
+		}
+	}
+
+	copy((*[Resolution*Resolution*4]byte)(v.GetData())[:], data[:])
 }

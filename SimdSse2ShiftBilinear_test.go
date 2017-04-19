@@ -17,29 +17,29 @@
 package gocvsimd
 
 import (
-	"fmt"
+	_ "fmt"
 	"testing"
 )
 
 func TestSimdSse2ShiftBilinear(t *testing.T) {
 
-	pixels := make([]byte, Resolution*Resolution*4)
-
-	for i := 0; i < Resolution*Resolution*4; i++ {
-		pixels[i] = byte(i)
-	}
-
-	src, bkg := SimdSetup(BGRA32)
-	dst, _ := SimdSetup(BGRA32)
-
-	copy((*[Resolution * Resolution * 4]byte)(src.GetData())[:], pixels[:])
-	copy((*[Resolution * Resolution * 4]byte)(bkg.GetData())[:], pixels[:])
-
-	SimdSse2ShiftBilinear(src, bkg, dst)
-
-	result := make([]byte, Resolution*Resolution*4)
-
-	copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
-
-	fmt.Println(result[:128])
+	//pixels := make([]byte, Resolution*Resolution*4)
+	//
+	//for i := 0; i < Resolution*Resolution*4; i++ {
+	//	pixels[i] = byte(i)
+	//}
+	//
+	//src, bkg := SimdSetup(BGRA32)
+	//dst, _ := SimdSetup(BGRA32)
+	//
+	//copy((*[Resolution * Resolution * 4]byte)(src.GetData())[:], pixels[:])
+	//copy((*[Resolution * Resolution * 4]byte)(bkg.GetData())[:], pixels[:])
+	//
+	//SimdSse2ShiftBilinear(src, bkg, dst)
+	//
+	//result := make([]byte, Resolution*Resolution*4)
+	//
+	//copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
+	//
+	//fmt.Println(result[:128])
 }

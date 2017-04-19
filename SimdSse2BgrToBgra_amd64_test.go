@@ -18,16 +18,7 @@ package gocvsimd
 
 import "testing"
 
-func TestSse2BgraToBgra(t *testing.T) {
-
-	src := make([]byte, Resolution*Resolution*4)
-
-	for i := 0; i < Resolution*Resolution; i++ {
-		src[0+i*4] = byte(i)
-		src[1+i*4] = byte(i)
-		src[2+i*4] = byte(i)
-		src[3+i*4] = byte(i)
-	}
+func TestSse2Bgr48pToBgra32(t *testing.T) {
 
 	bgra, _ := SimdSetup(BGRA32)
 
@@ -36,6 +27,5 @@ func TestSse2BgraToBgra(t *testing.T) {
 	g.Recreate(Resolution, Resolution, INT16)
 	r.Recreate(Resolution, Resolution, INT16)
 
-	alpha := uint8(0xff)
-	SimdSse2Bgr48pToBgra32(bgra, b, g, r, alpha)
+	SimdSse2Bgr48pToBgra32(b, g, r, bgra, 0xff)
 }

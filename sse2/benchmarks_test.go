@@ -623,6 +623,39 @@ func BenchmarkOperationBinary16i(b *testing.B) {
         benchmarkOperation(b, INT16, SimdSse2OperationBinary16i)
 }
 
+func BenchmarkReduceGray2x2(b *testing.B) {
+
+	src := View{}
+	src.Recreate(Resolution*2, Resolution*2, GRAY8)
+	_, dst := GoCVSimdSetup(GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2ReduceGray2x2(src, dst)
+	}
+}
+
+func BenchmarkReduceGray3x3(b *testing.B) {
+
+	src := View{}
+	src.Recreate(Resolution*3, Resolution*3, GRAY8)
+	_, dst := GoCVSimdSetup(GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2ReduceGray3x3(src, dst, 123)
+	}
+}
+
+func BenchmarkReduceGray4x4(b *testing.B) {
+
+	src := View{}
+	src.Recreate(Resolution*4, Resolution*4, GRAY8)
+	_, dst := GoCVSimdSetup(GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2ReduceGray4x4(src, dst)
+	}
+}
+
 func BenchmarkStretchGray2x2(b *testing.B) {
 
 	src := View{}
@@ -632,8 +665,20 @@ func BenchmarkStretchGray2x2(b *testing.B) {
         for i := 0; i < b.N; i++ {
                 SimdSse2StretchGray2x2(src, dst)
         }
-
 }
+
+func BenchmarkResizeBilinear(b *testing.B) {
+
+	// TODO: Crashes
+	src := View{}
+	src.Recreate(Resolution*2, Resolution*2, GRAY8)
+	_, dst := GoCVSimdSetup(GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2ResizeBilinear(src, dst)
+	}
+}
+
 
 func benchmarkYuvToBgra(b *testing.B, f func(y, u, v, bgra View, alpha uint64/*uint8*/)) {
 	y, u := GoCVSimdSetup(GRAY8)
@@ -698,3 +743,60 @@ func BenchmarkTexturePerformCompensation(b *testing.B) {
         }
 }
 
+func benchmarkReorder(b *testing.B, f func(src View, size uint64, dst View)) {
+
+	src, dst := GoCVSimdSetup(GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		f(src, uint64(src.GetWidth()*src.GetStride()), dst)
+	}
+}
+
+func BenchmarkReorder16bit(b *testing.B) {
+
+	benchmarkReorder(b, SimdSse2Reorder16bit)
+}
+
+func BenchmarkReorder32bit(b *testing.B) {
+
+	benchmarkReorder(b, SimdSse2Reorder32bit)
+}
+
+func BenchmarkReorder64bit(b *testing.B) {
+
+	benchmarkReorder(b, SimdSse2Reorder64bit)
+}
+
+func BenchmarkHistogramAbsSecondDerivative(b *testing.B) {
+
+	grayin, histo := View{}, View{}
+	grayin.Recreate(Resolution, Resolution, GRAY8)
+	histo.Recreate(Resolution, Resolution, GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2AbsSecondDerivativeHistogram(grayin, 2, 4, histo)
+	}
+}
+
+func BenchmarkHistogramMasked(b *testing.B) {
+
+	grayin, mask := View{}, View{}
+	grayin.Recreate(Resolution, Resolution, GRAY8)
+	mask.Recreate(Resolution, Resolution, GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2HistogramMasked(grayin, mask, 0)
+	}
+}
+
+func BenchmarkHistogramConditional(b *testing.B) {
+
+	grayin, mask, histo := View{}, View{}, View{}
+	grayin.Recreate(Resolution, Resolution, GRAY8)
+	mask.Recreate(Resolution, Resolution, GRAY8)
+	histo.Recreate(Resolution, Resolution, GRAY8)
+
+	for i := 0; i < b.N; i++ {
+		SimdSse2HistogramConditional(grayin, mask, 0, 0, histo)
+	}
+}

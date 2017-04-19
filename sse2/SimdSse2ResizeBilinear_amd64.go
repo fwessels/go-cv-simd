@@ -22,7 +22,7 @@ func SimdSse2EstimateAlphaIndexX(srcSize, dstSize uint64, indexes, alphas unsafe
 func SimdSse2ResizeBilinear(src, dst View) {
 
 	// TODO: Implement getting
-	size := 1024*10
+	size := 1024*100
 	pbuffer := Allocate(size, 32)
 
 	_SimdSse2ResizeBilinear(src.GetData(), uint64(src.GetWidth()), uint64(src.GetHeight()), uint64(src.GetStride()),

@@ -17,7 +17,7 @@
 package gocvsimd
 
 import (
-	"fmt"
+	_ "fmt"
 	"testing"
 )
 
@@ -26,7 +26,7 @@ func TestSimdSse2ResizeBilinear(t *testing.T) {
 	pixels := make([]byte, Resolution*Resolution*4)
 
 	for i := 0; i < Resolution*Resolution*4; i++ {
-		pixels[i] = byte(i)
+		pixels[i] = 0xff
 	}
 
 	src, dst := SimdSetup(BGRA32)
@@ -39,5 +39,5 @@ func TestSimdSse2ResizeBilinear(t *testing.T) {
 
 	copy(result[:], (*[Resolution * Resolution * 4]byte)(dst.GetData())[:])
 
-	fmt.Println(result[:128])
+	//fmt.Println(result[:128])
 }

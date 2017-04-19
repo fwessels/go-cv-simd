@@ -2,7 +2,7 @@ package gocvsimd
 
 import (
 	"testing"
-	"fmt"
+	_ "fmt"
 )
 
 func TestSimdSse2ReduceGray3x3(t *testing.T) {
@@ -24,8 +24,8 @@ func TestSimdSse2ReduceGray3x3(t *testing.T) {
 
 	copy(dst[:], (*[Resolution*Resolution]byte)(grayout.GetData())[:])
 
-	fmt.Println(dst[:128])
-	
+	//fmt.Println(dst[:128])
+
 	//for r := 0; r < Resolution;  r += 2 {
 	//	for c := 0; c < Resolution; c += 2 {
 	//		v := (int(src[Resolution*(r)  +c]) + int(src[Resolution*(r)+c+1]) +

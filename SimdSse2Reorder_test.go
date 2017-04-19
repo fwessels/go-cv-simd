@@ -17,7 +17,7 @@
 package gocvsimd
 
 import (
-	"fmt"
+	_ "fmt"
 	"testing"
 )
 
@@ -39,7 +39,7 @@ func TestSse2Reorder(t *testing.T) {
 
 	copy(dst16[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
-	fmt.Println(dst16[:32])
+	//fmt.Println(dst16[:32])
 
 	SimdSse2Reorder32bit(bgra, Resolution*Resolution, gray)
 
@@ -47,7 +47,7 @@ func TestSse2Reorder(t *testing.T) {
 
 	copy(dst32[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
-	fmt.Println(dst32[:32])
+	//fmt.Println(dst32[:32])
 
 	SimdSse2Reorder64bit(bgra, Resolution*Resolution, gray)
 
@@ -55,5 +55,5 @@ func TestSse2Reorder(t *testing.T) {
 
 	copy(dst64[:], (*[Resolution * Resolution]byte)(gray.GetData())[:])
 
-	fmt.Println(dst64[:32])
+	//fmt.Println(dst64[:32])
 }

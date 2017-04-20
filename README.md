@@ -115,3 +115,10 @@ BenchmarkTextureBoostedUv-8                  	  300000	      5139 ns/op
 BenchmarkTextureBoostedSaturatedGradient-8   	  100000	     22974 ns/op
 BenchmarkTexturePerformCompensation-8        	  500000	      2801 ns/op
 ```
+## go-cv-simd
+
+See the underlying package [go-cv-simd](https://github.com/fwessels/go-cv-simd) for more information.
+
+## License
+
+go-cv-simd is released under the Apache License v2.0. You can find the complete text in the file LICENSE.

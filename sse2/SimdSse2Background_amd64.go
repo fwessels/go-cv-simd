@@ -76,7 +76,7 @@ func SimdSse2BackgroundGrowRangeFast(value, lo, hi View) {
 	_SimdSse2BackgroundGrowRangeFast(value.GetData(), uint64(value.GetStride()), uint64(value.GetWidth()), uint64(value.GetHeight()), lo.GetData(), uint64(lo.GetStride()), hi.GetData(), uint64(hi.GetStride()))
 }
 
-// SimdSse2BackgroundAdjustRange performs collection of background statistic.
+// SimdSse2BackgroundIncrementCount performs collection of background statistic.
 // All images must have the same width, height and format (8-bit gray).
 //     Updates background statistic counters for every point:
 //         loCount[i] += (value[i] < loValue[i] && loCount[i] < 255) ? 1 : 0;
